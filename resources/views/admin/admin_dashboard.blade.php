@@ -25,6 +25,17 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/dark-theme.css')}}"/>
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css')}}"/>
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css')}}"/>
+	{{-- Toastr  --}}
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+	{{-- end toastr css --}}
+	{{-- data tables --}}
+	<link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
+	{{-- end datat tables --}}
+	{{-- sweetalert2 --}}
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+ 	
+	{{-- END sweetalert2 --}}
 	<title>Hotel Booking</title>
 </head>
 
@@ -59,9 +70,7 @@
 
 
 
-	<!--start switcher-->
 
-	<!--end switcher-->
 	<!-- Bootstrap JS -->
 	<script src="{{ asset('backend/assets/js/bootstrap.bundle.min.js')}}"></script>
 	<!--plugins-->
@@ -78,6 +87,56 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+
+	{{-- seewralalert --}}
+	<script src="{{ asset('backend/assets/js/code.js') }}"></script>
+	{{-- validate --}}
+	<script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
+	<!--Notification-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<script>
+	 @if(Session::has('message'))
+	 var type = "{{ Session::get('alert-type','info') }}"
+	 switch(type){
+		case 'info':
+		toastr.info(" {{ Session::get('message') }} ");
+		break;
+	
+		case 'success':
+		toastr.success(" {{ Session::get('message') }} ");
+		break;
+	
+		case 'warning':
+		toastr.warning(" {{ Session::get('message') }} ");
+		break;
+	
+		case 'error':
+		toastr.error(" {{ Session::get('message') }} ");
+		break; 
+	 }
+	 @endif 
+	</script>
+	<!--end Notification-->
+	<script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+	<script>
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
+	<!--app JS-->
 </body>
 
 </html>

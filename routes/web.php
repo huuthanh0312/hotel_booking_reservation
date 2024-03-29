@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\TeamController;
+use App\Http\Controllers\Backend\RoomTypeController;
+use App\Http\Controllers\RoomController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,11 +82,36 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     // Routes Book Area Controller
     Route::controller(TeamController::class)->group(function (){
         Route::get('/book/area', 'BookArea' )->name('book.area');
-        Route::post('/update/bookarea', 'UpdateBookArea' )->name('update.book.area');
 
+        Route::post('/update/bookarea', 'UpdateBookArea' )->name('update.book.area');
+    });
+
+    // Routes Room Type Controller
+    Route::controller(RoomTypeController::class)->group(function (){
+        Route::get('/room/type/list', 'RoomTypeList' )->name('room.type.list');
+
+        Route::get('/room/type/add', 'RoomTypeAdd' )->name('room.type.add');
+
+        Route::post('/room/type/store', 'RoomTypeStore' )->name('room.type.store');
+
+        Route::get('/room/type/edit/{id}', 'RoomTypeEdit' )->name('room.type.edit');
+
+        Route::post('/room/type/update', 'RoomTypeUpdate' )->name('room.type.update');
+
+        Route::get('/room/type/delete/{id}', 'RoomTypeDelete' )->name('room.type.delete');
 
     });
 
+        // Routes Room Controller
+        Route::controller(RoomController::class)->group(function (){
+
+            Route::get('/room/edit/{id}', 'RoomEdit' )->name('room.edit');
+    
+            Route::post('/room/update/{id}', 'RoomUpdate' )->name('room.update');
+    
+            Route::get('/multi/images/delete/{id}', 'MultiImageDelete' )->name('multi.image.delete');
+    
+        });
 
 
 

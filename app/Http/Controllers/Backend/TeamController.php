@@ -81,7 +81,7 @@ class TeamController extends Controller
             if($item->image){
                 @unlink(public_path('upload/team/'.$item->image));
             }
-            Team::findOrFail( $id)->delete();
+            Team::findOrFail($id)->delete();
             $notification = array(
                 'message'=> 'Delete Team Successfully',
                 'alert-type' => 'success'

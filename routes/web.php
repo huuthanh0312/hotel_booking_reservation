@@ -98,19 +98,31 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
         Route::post('/room/type/update', 'RoomTypeUpdate' )->name('room.type.update');
 
-        Route::get('/room/type/delete/{id}', 'RoomTypeDelete' )->name('room.type.delete');
 
     });
 
         // Routes Room Controller
         Route::controller(RoomController::class)->group(function (){
 
-            Route::get('/room/edit/{id}', 'RoomEdit' )->name('room.edit');
+            Route::get('/room/edit/{id}', 'RoomEdit' )->name('edit.room');
     
-            Route::post('/room/update/{id}', 'RoomUpdate' )->name('room.update');
+            Route::post('/room/update/{id}', 'RoomUpdate' )->name('update.room');
     
             Route::get('/multi/images/delete/{id}', 'MultiImageDelete' )->name('multi.image.delete');
     
+
+            // Add Room Number
+            Route::post('/room/number/{id}', 'StoreRoomNumber' )->name('store.room.no');
+
+            Route::get('/room/number/edit/{id}', 'EditRoomNumber' )->name('edit.room.no');
+
+            Route::post('/room/number/update/{id}', 'UpdateRoomNumber' )->name('update.room.no');
+    
+            Route::get('/room/number/delete/{id}', 'DeleteRoomNumber' )->name('delete.room.no');
+
+            ////////////////// Room Type And Room Relationship method delete ////////////////////
+            Route::get('/room/delete/{id}', 'RoomDelete' )->name('delete.room');
+            //////////////////End  Room Type And Room Relationship method delete ////////////////////
         });
 
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Facility;
 use App\Models\MultiImage;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\RoomNumber;
 use PHPUnit\Framework\Constraint\Count;
 use Carbon\Carbon;
 
@@ -15,10 +17,12 @@ class RoomController extends Controller
     public function RoomEdit($id){
         $basic_facility = Facility::where('rooms_id', $id)->get();
         $multi_image = MultiImage::where('rooms_id', $id)->get();
+        $room_number = RoomNumber::where('rooms_id', $id)->get();
         $editRoom = Room::findOrFail($id);
-        return view("backend.allroom.rooms.edit_rooms", compact("editRoom", "basic_facility", "multi_image"));
+        return view("backend.allroom.rooms.edit_rooms", compact("editRoom", "basic_facility", "multi_image", "room_number"));
 
     }// end method
+
     // add room controller 
     public function RoomUpdate(Request $request, $id){
         // var_dump($request->basic_facility_name);
@@ -111,5 +115,83 @@ class RoomController extends Controller
             'alert-type' => 'warning'
         );
         return redirect()->back()->with($notification);
+    }//end method
+
+    //////////////// Room Number Methods /////////////
+    // Add Room No 
+    public function StoreRoomNumber(Request $request, $id){
+        $data = new RoomNumber();
+        $data->rooms_id = $id;
+        $data->room_type_id = $request->room_type_id;
+        $data->room_no = $request->room_no;
+        $data->status = $request->status;
+        $data->save();
+        $notification = array(
+            'message'=> 'Add Room Number Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }//end method
+    // Edit Room No
+    public function EditRoomNumber($id){
+        $editRoomNumber = RoomNumber::find($id);
+        return view('backend.allroom.rooms.edit_roomnumber', compact('editRoomNumber'));
+    }
+    // update Room Number
+    public function UpdateRoomNumber(Request $request, $id){
+        $dataRoomNumber = RoomNumber::find($id);
+        $dataRoomNumber->room_no = $request->room_no;
+        $dataRoomNumber->status = $request->status;
+        $dataRoomNumber->save();
+        $notification = array(
+            'message'=> 'Update Room Number Successful',
+            'alert-type'=> 'success'
+        );
+        return redirect()->route('room.edit', $dataRoomNumber->rooms_id)->with($notification);
+
+    }// end methods
+
+    // Deleted Room Number
+    public function DeleteRoomNumber( $id){
+        $roomNumber = RoomNumber::find($id);
+        $roomNumber->delete();
+
+        $notification = array(
+            'message'=> 'Deleted Room Number Successfully',
+            'alert-type'=> 'success'
+        );
+        return redirect()->back()->with($notification);
+    } // end methods
+
+    ////////////////// Room Type And Room Relationship method delete ////////////////////
+    public function RoomDelete($id){
+        $room = Room::find($id);
+
+        if(file_exists($room->image) AND !empty($room->image)){
+            unlink($room->image);
+        }
+        //delete multi image unlink path
+        $subimage = MultiImage::where('rooms_id', $room->id)->get()->toArray();
+
+        if(!empty($subimage)){
+            foreach($subimage as $multi){
+                if(!empty($multi)){
+                    @unlink($multi['multi_img']);
+                }              
+            }
+        }
+
+        // deleted relationship room and other
+        RoomType::where('id', $room->roomtype_id)->delete();
+        MultiImage::where('rooms_id', $room->id)->delete();
+        Facility::where('rooms_id', $room->id)->delete();
+        RoomNumber::where('rooms_id', $room->id)->delete();
+        $room->delete();
+        $notification = array(
+            'message'=> 'Deleted Room  Successfully',
+            'alert-type'=> 'warning'
+        );
+        return redirect()->back()->with($notification);
+
     }
 }

@@ -57,14 +57,5 @@ class RoomTypeController extends Controller
 
     }
 
-    public function RoomTypeDelete($id){
-        RoomType::findOrFail($id)->delete(); 
-        
-        $notification = array(
-            'message'=> 'Delete Room Type Successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
-    }
 
 }

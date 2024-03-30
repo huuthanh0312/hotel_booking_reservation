@@ -43,12 +43,12 @@
                         @endphp
                         <tr>
                             <td>{{ $key +1 }}</td>
-                            <td><img src=" {{(!empty($item->room->image)) ? url('upload/rooming/'.$item->room->image.'') : url('upload/no_image.jpg')}}" width="50px" alt=""></td>
+                            <td><img src=" {{(!empty($item->room->image)) ? url($item->room->image) : url('upload/no_image.jpg')}}" width="50px" alt=""></td>
                             <td>{{$item->name}}</td>
                             <td>
                                 @foreach ($rooms as $room)                                
-                                <a href="{{ route('room.edit', $room->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
-                                <a href="{{ route('room.delete', $room->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
+                                <a href="{{ route('edit.room', $room->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
+                                <a href="{{ route('delete.room', $room->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
                                 @endforeach
                             </td>
                         </tr>

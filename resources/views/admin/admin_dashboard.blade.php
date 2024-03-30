@@ -33,7 +33,6 @@
 	{{-- end datat tables --}}
 	{{-- sweetalert2 --}}
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
  	
 	{{-- END sweetalert2 --}}
 	<title>Hotel Booking</title>
@@ -136,16 +135,7 @@
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
 	</script>
-	<!--app JS-->
-	{{-- Tindy Area text --}}
-	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-	<script>
-	tinymce.init({
-		selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
-		plugins: 'powerpaste advcode table lists checklist markdown',
-		toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
-	});
-	</script>
+	
 </body>
 
 </html>

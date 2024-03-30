@@ -59,7 +59,7 @@
                                 <div class="tab-pane fade show active" id="primaryhome" role="tabpanel">
                                     <div class=" p-4">
                                         <h5 class="mb-4">Room Form</h5>
-                                        <form class="row g-3" action="{{ route('room.update', $editRoom->id) }}" method="post" enctype="multipart/form-data">
+                                        <form class="row g-3" action="{{ route('update.room', $editRoom->id) }}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             <div class="col-md-4">
                                                 <label for="input1" class="form-label">Room Type Name</label>
@@ -164,15 +164,12 @@
                                                                 <select name="facility_name[]" id="facility_name"
                                                                     class="form-control">
                                                                     <option value="">Select Facility</option>
-                                                                    <option value="Complimentary Breakfast" {{$item->
-                                                                        facility_name == 'Complimentary Breakfast'?'selected':''}}>Complimentary
+                                                                    <option value="Complimentary Breakfast" {{$item->facility_name == 'Complimentary Breakfast'?'selected':''}}>Complimentary
                                                                         Breakfast</option>
-                                                                    <option value="32/42 inch LED TV" {{$item->
-                                                                        facility_name == '32/42 inch LED TV'?'selected':''}}> 32/42 inch LED TV
+                                                                    <option value="32/42 inch LED TV" {{$item->facility_name == '32/42 inch LED TV'?'selected':''}}> 32/42 inch LED TV
                                                                     </option>
 
-                                                                    <option value="Smoke alarms" {{$item->facility_name
-                                                                        == 'Smoke alarms'?'selected':''}}>Smoke alarms
+                                                                    <option value="Smoke alarms" {{$item->facility_name == 'Smoke alarms'?'selected':''}}>Smoke alarms
                                                                     </option>
 
                                                                     <option value="Minibar" {{$item->facility_name == 'Minibar'?'selected':''}}>
@@ -199,16 +196,13 @@
                                                                         'Hair dryer'?'selected':''}} >Hair dryer
                                                                     </option>
 
-                                                                    <option value="Wake-up service" {{$item->
-                                                                        facility_name == 'Wake-up service'?'selected':''}}>Wake-up service
+                                                                    <option value="Wake-up service" {{$item->facility_name == 'Wake-up service'?'selected':''}}>Wake-up service
                                                                     </option>
 
-                                                                    <option value="Laundry & Dry Cleaning" {{$item->
-                                                                        facility_name == 'Laundry & Dry Cleaning'?'selected':''}} >Laundry & Dry
+                                                                    <option value="Laundry & Dry Cleaning" {{$item->facility_name == 'Laundry & Dry Cleaning'?'selected':''}} >Laundry & Dry
                                                                         Cleaning</option>
 
-                                                                    <option value="Electronic door lock" {{$item->
-                                                                        facility_name == 'Electronic door lock' ? 'selected':''}}>Electronic door lock
+                                                                    <option value="Electronic door lock" {{$item->facility_name == 'Electronic door lock' ? 'selected':''}}>Electronic door lock
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -225,7 +219,35 @@
                                                     </div>
 
                                                     @empty
-
+                                                    <div class="basic_facility_section_remove" id="basic_facility_section_remove">
+                                                        <div class="row add_item">
+                                                            <div class="col-md-6">
+                                                                <label for="basic_facility_name" class="form-label">Room Facilities </label>
+                                                                <select name="facility_name[]" id="basic_facility_name" class="form-control">
+                                                                <option value="">Select Facility</option>
+                                                                <option value="Complimentary Breakfast">Complimentary Breakfast</option>
+                                                                <option value="32/42 inch LED TV" > 32/42 inch LED TV</option>
+                                                                <option value="Smoke alarms" >Smoke alarms</option>
+                                                                <option value="Minibar"> Minibar</option>
+                                                                <option value="Work Desk" >Work Desk</option>
+                                                                <option value="Free Wi-Fi">Free Wi-Fi</option>
+                                                                <option value="Safety box" >Safety box</option>
+                                                                <option value="Rain Shower" >Rain Shower</option>
+                                                                <option value="Slippers" >Slippers</option>
+                                                                <option value="Hair dryer" >Hair dryer</option>
+                                                                <option value="Wake-up service" >Wake-up service</option>
+                                                                <option value="Laundry & Dry Cleaning" >Laundry & Dry Cleaning</option>
+                                                                <option value="Electronic door lock" >Electronic door lock</option> 
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group" style="padding-top: 30px;">
+                                                                <a class="btn btn-success addeventmore"><i class="lni lni-circle-plus"></i></a>
+                                                                <span class="btn btn-danger removeeventmore"><i class="lni lni-circle-minus"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @endforelse
 
                                                 </div>
@@ -240,89 +262,67 @@
                                             </div>
                                         </form>
                                     </div>
-
-                                </div>
+                                   </div>
                                 <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                                     <div class=" p-4">
-                                        <h5 class="mb-4">Vertical Form</h5>
-                                        <form class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="input1" class="form-label">First Name</label>
-                                                <input type="text" class="form-control" id="input1"
-                                                    placeholder="First Name">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="input2" class="form-label">Last Name</label>
-                                                <input type="text" class="form-control" id="input2"
-                                                    placeholder="Last Name">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input3" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="input3" placeholder="Phone">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input4" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="input4"
-                                                    placeholder="Email">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input5" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="input5"
-                                                    placeholder="Password">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input6" class="form-label">DOB</label>
-                                                <input type="date" class="form-control" id="input6"
-                                                    placeholder="Date of Birth">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input7" class="form-label">Country</label>
-                                                <select id="input7" class="form-select">
-                                                    <option selected="">Choose...</option>
-                                                    <option>One</option>
-                                                    <option>Two</option>
-                                                    <option>Three</option>
-                                                </select>
-                                            </div>
+                                        <a onclick="addRoomNo()" id="addRoomNo" class="btn btn-outline-primary 
+                                                px-5 radius-30"><i class="lni lni-add-files"></i> Add New</a>
+                                        <a onclick="listRoomNo()" id="listRoomNo" class="btn btn-outline-primary 
+                                                px-5 radius-30"><i class="lni lni-add-files"></i> List Room Number</a>
+                                        <br>
+                                        <br>
+                                        <div class="roomnohide" id="roomnohide">
+                                            <form method="post" action=" {{route('store.room.no', $editRoom->id)}} "class="row g-3">
+                                                @csrf
+                                                <input type="hidden" name="room_type_id" value="{{$editRoom->roomtype_id}}">
+                                                <div class="col-md-12">
+                                                    <label for="room_no" class="form-label">Room No</label>
+                                                    <input type="text" class="form-control" id="room_no" name="room_no">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="status" class="form-label">Status Room</label>
+                                                    <select name="status" id="status" class="form-select">
+                                                        <option selected="">Choose...</option>
+                                                        <option value="active" selected>Active</option>
+                                                        <option value="inactive" >InActive</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="d-md-flex d-grid align-items-center gap-3">
+                                                        
+                                                        <button type="submit" class="btn btn-primary px-4">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div> 
+                                        {{-- end form room no number --}}
 
-                                            <div class="col-md-6">
-                                                <label for="input8" class="form-label">City</label>
-                                                <input type="text" class="form-control" id="input8" placeholder="City">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="input9" class="form-label">State</label>
-                                                <select id="input9" class="form-select">
-                                                    <option selected="">Choose...</option>
-                                                    <option>One</option>
-                                                    <option>Two</option>
-                                                    <option>Three</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="input10" class="form-label">Zip</label>
-                                                <input type="text" class="form-control" id="input10" placeholder="Zip">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label for="input11" class="form-label">Address</label>
-                                                <textarea class="form-control" id="input11" placeholder="Address ..."
-                                                    rows="3"></textarea>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="input12">
-                                                    <label class="form-check-label" for="input12">Check me
-                                                        out</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="d-md-flex d-grid align-items-center gap-3">
-                                                    <button type="button" class="btn btn-primary px-4">Submit</button>
-                                                    <button type="button" class="btn btn-light px-4">Reset</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <table class="table table-striped mb-0 text-center" id="roomview">
+                                            <thead>
+                                                <tr>
+                                                    <td scope="col">Room Number</td>
+                                                    <td scope="col">Status</td>
+                                                    <td scope="col">Action</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($room_number as $item)
+                                                    
+                                                <tr>
+                                                    <td>{{ $item->room_no}}</td>
+                                                    <td>{{ $item->status}}</td>
+                                                    <td>
+                                                        <a href=" {{ route('edit.room.no', $item->id) }}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
+                                                        <a href="{{ route('delete.room.no', $item->id) }}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                        </table>
                                     </div>
-                                </div>
+                                 </div> {{-- end primaryprofile  --}}
 
                             </div>
                         </div>
@@ -388,36 +388,7 @@
 </script>
 <!--========== End of Basic Plan Facilities ==============-->
 
-{{-- validate form --}}
-{{-- <script type="text/javascript">
-    $(document).ready(function (){
-        $('#myForm').validate({
-            rules: {
-                name: {
-                    required : true,
-                         
-            },
-            messages :{
-                name: {
-                    required : 'Please Enter Room Type Name',
-                }, 
-                
-            },
-            errorElement : 'span', 
-            errorPlacement: function (error,element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight : function(element, errorClass, validClass){
-                $(element).addClass('is-invalid');
-            },
-            unhighlight : function(element, errorClass, validClass){
-                $(element).removeClass('is-invalid');
-            },
-        }),
-    });
-    
- --}}
+
 <!--------===Show MultiImage ========------->
 <script>
     $(document).ready(function(){
@@ -446,6 +417,7 @@
      });
     });
 </script>
+<!--------===Show Image ========------->
 <script type="text/javascript">
     // ajax call image upload change img profile
     $(document).ready(function(){
@@ -458,5 +430,27 @@
         });
     });
 </script>
+<!--------===End Show Image ========------->
 
+<!--------===Show And Add Room Number ========------->
+<script>
+    $('#roomnohide').hide();
+    $('#roomview').show();
+    $('#listRoomNo').hide();
+
+    function addRoomNo(){
+        $('#roomnohide').show();
+        $('#roomview').hide();
+        $('#addRoomNo').hide();
+        $('#listRoomNo').show();
+    }
+    function listRoomNo(){
+        $('#roomnohide').hide();
+        $('#roomview').show();
+        $('#addRoomNo').show();
+        $('#listRoomNo').hide();
+    }
+</script>
+
+<!--------===End Room Number ========------->
 @endsection

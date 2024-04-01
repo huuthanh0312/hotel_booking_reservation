@@ -102,7 +102,7 @@ class RoomController extends Controller
         if($deleteData){
             $imagePath = $deleteData->multi_img;
             if(file_exists($imagePath)){
-                unlink($imagePath);
+                @unlink(public_path($imagePath));
                 echo "Image Delete Successfully";
             }else {
                 echo "Image does not exist";
@@ -147,7 +147,7 @@ class RoomController extends Controller
             'message'=> 'Update Room Number Successful',
             'alert-type'=> 'success'
         );
-        return redirect()->route('room.edit', $dataRoomNumber->rooms_id)->with($notification);
+        return redirect()->route('edit.room', $dataRoomNumber->rooms_id)->with($notification);
 
     }// end methods
 
@@ -168,7 +168,7 @@ class RoomController extends Controller
         $room = Room::find($id);
 
         if(file_exists($room->image) AND !empty($room->image)){
-            unlink($room->image);
+            @unlink(public_path($room->image));
         }
         //delete multi image unlink path
         $subimage = MultiImage::where('rooms_id', $room->id)->get()->toArray();
@@ -176,7 +176,7 @@ class RoomController extends Controller
         if(!empty($subimage)){
             foreach($subimage as $multi){
                 if(!empty($multi)){
-                    @unlink($multi['multi_img']);
+                    @unlink(public_path($multi['multi_img']));
                 }              
             }
         }
@@ -187,6 +187,7 @@ class RoomController extends Controller
         Facility::where('rooms_id', $room->id)->delete();
         RoomNumber::where('rooms_id', $room->id)->delete();
         $room->delete();
+
         $notification = array(
             'message'=> 'Deleted Room  Successfully',
             'alert-type'=> 'warning'

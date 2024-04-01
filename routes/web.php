@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\RoomTypeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\Frontend\FrontendRoomController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +18,6 @@ use App\Http\Controllers\RoomController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // Routes users 
 Route::get('/', [UserController::class, 'Index']);
@@ -128,3 +125,13 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
 
 }); // End Admin Group Middleware
+
+
+
+
+////// Front End Show Controller 
+Route::controller(FrontendRoomController::class)->group(function (){
+    Route::get('/rooms/', 'AllRoom' )->name('all.room.frontend');
+
+    Route::get('/rooms/details/{id}', 'DetailsRoomPage' )->name('details.froom');
+});

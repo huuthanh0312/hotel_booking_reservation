@@ -1,9 +1,11 @@
-
+@php    
+    $rooms = App\Models\Room::latest()->get();
+@endphp
 
 <div class="navbar-area">
     <!-- Menu For Mobile Device -->
     <div class="mobile-nav">
-        <a href="index.html" class="logo">
+        <a href="{{url('/')}}" class="logo">
             <img src="{{ asset('frontend/assets/img/logos/logo-1.png')}}" class="logo-one" alt="Logo">
             <img src="{{ asset('frontend/assets/img/logos/footer-logo1.png')}}" class="logo-two" alt="Logo">
         </a>
@@ -13,7 +15,7 @@
     <div class="main-nav">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light ">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{url('/')}}">
                     <img src="{{ asset('frontend/assets/img/logos/logo-1.png')}}" class="logo-one" alt="Logo">
                     <img src="{{ asset('frontend/assets/img/logos/footer-logo1.png')}}" class="logo-two" alt="Logo">
                 </a>
@@ -21,27 +23,8 @@
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                Home 
-                                <i class='bx bx-chevron-down'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="index.html" class="nav-link active">
-                                        Home One  
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="index-2.html" class="nav-link">
-                                        Home Two
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="index-3.html" class="nav-link">
-                                        Home Three
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="{{url('/')}}" class="nav-link active"> Home </a>
+                            
                         </li>
                         <li class="nav-item">
                             <a href="about.html" class="nav-link">
@@ -49,118 +32,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Pages 
-                                <i class='bx bx-chevron-down'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="book.html" class="nav-link">
-                                        Booking
-                                    </a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a href="team.html" class="nav-link">
-                                        Team
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="faq.html" class="nav-link">
-                                        FAQ
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="restaurant.html" class="nav-link">
-                                        Restaurant
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="reservation.html" class="nav-link">
-                                        Reservation
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="gallery.html" class="nav-link">
-                                        Gallery
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="testimonials.html" class="nav-link">
-                                        Testimonials
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="checkout.html" class="nav-link">
-                                        Check out
-                                    </a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a href="sign-in.html" class="nav-link">
-                                        Sign In
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="sign-up.html" class="nav-link">
-                                        Sign Up
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="terms-condition.html" class="nav-link">
-                                        Terms & Conditions
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="privacy-policy.html" class="nav-link">
-                                        Privacy Policy
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="404.html" class="nav-link">
-                                        404 page
-                                    </a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a href="coming-soon.html" class="nav-link">
-                                        Coming Soon
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="#" class="nav-link">Restaurant </a>
+                            
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Services 
-                                <i class='bx bx-chevron-down'></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="services-1.html" class="nav-link">
-                                        Services Style One 
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="services-2.html" class="nav-link">
-                                        Services Style Two 
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="service-details.html" class="nav-link">
-                                        Service Details 
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="#" class="nav-link">Recreation </a>                           
                         </li>
 
                         <li class="nav-item">
@@ -168,42 +45,24 @@
                                 Blog
                                 <i class='bx bx-chevron-down'></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="blog-1.html" class="nav-link">
-                                        Blog Style One 
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="blog-2.html" class="nav-link">
-                                        Blog Style Two 
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="blog-details.html" class="nav-link">
-                                        Blog Details 
-                                    </a>
-                                </li>
-                            </ul>
+                            
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Rooms
+                            <a href="{{route('all.room.frontend')}}" class="nav-link">
+                                All Rooms
                                 <i class='bx bx-chevron-down'></i>
                             </a>
                             <ul class="dropdown-menu">
+                                @foreach($rooms as $room)
                                 <li class="nav-item">
-                                    <a href="room.html" class="nav-link">
-                                        Rooms 
+                                    <a href="{{route('details.froom', $room->id)}}" class="nav-link">
+                                        {{$room['type']['name']}} 
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="room-details.html" class="nav-link">
-                                        Room Details 
-                                    </a>
-                                </li>
+                                @endforeach
                             </ul>
+                            
                         </li>
 
                         <li class="nav-item">

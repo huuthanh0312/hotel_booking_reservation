@@ -27,22 +27,67 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
+        
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        
+        $url ='';
+        if($request->user()->role === 'admin'){
+            
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+            $notification = array(
+                'message'=> 'Please Access The Admin Link',
+                'alert-type' => 'warning'
+            );
+            
+            return redirect()->back()->with($notification);
+        } elseif($request->user()->role === 'user'){
+            
+            $url = '/dashboard';
+            $notification = array(
+                'message'=> ''.$profileData->name.' Login Successfully',
+                'alert-type' => 'info'
+            );
+            return redirect()->intended($url)->with($notification);
+        }
+        
+        // return redirect()->intended(RouteServiceProvider::HOME);
+    }
+
+    public function AdminStore(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        
 
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        $notification = array(
-            'message'=> ''.$profileData->name.' Login Successfully',
-            'alert-type' => 'info'
-        );
+        
         $url ='';
         if($request->user()->role === 'admin'){
+            $request->session()->regenerate();
             $url = 'admin/dashboard';
+            $notification = array(
+                'message'=> ''.$profileData->name.' Login Successfully',
+                'alert-type' => 'info'
+            );
+            return redirect()->intended($url)->with($notification);
         } elseif($request->user()->role === 'user'){
-            $url = '/dashboard';
+            
+            $request->session()->invalidate();
+    
+            $request->session()->regenerateToken();
+            $notification = array(
+                'message'=> 'Access Is Denied',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
         }
-        return redirect()->intended($url)->with($notification);
+        
         // return redirect()->intended(RouteServiceProvider::HOME);
     }
 

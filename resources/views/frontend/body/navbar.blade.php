@@ -26,28 +26,11 @@
                             <a href="{{url('/')}}" class="nav-link active"> Home </a>
                             
                         </li>
-                        <li class="nav-item">
-                            <a href="about.html" class="nav-link">
-                                About
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="#" class="nav-link">Restaurant </a>
                             
                         </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Recreation </a>                           
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Blog
-                                <i class='bx bx-chevron-down'></i>
-                            </a>
-                            
-                        </li>
-
                         <li class="nav-item">
                             <a href="{{route('all.room.frontend')}}" class="nav-link">
                                 All Rooms
@@ -64,7 +47,23 @@
                             </ul>
                             
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Recreation </a>                           
+                        </li>
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Blog
+                                <i class='bx bx-chevron-down'></i>
+                            </a>
+                            
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">
+                                About
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="contact.html" class="nav-link">
                                 Contact

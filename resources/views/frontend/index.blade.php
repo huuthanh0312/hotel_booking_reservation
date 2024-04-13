@@ -20,13 +20,14 @@
 <div class="banner-form-area">
     <div class="container">
         <div class="banner-form">
-            <form>
+            <form method="post" action="{{ route('booking.search')}}" >
+                @csrf
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3">
                         <div class="form-group">
                             <label>CHECK IN TIME</label>
                             <div class="input-group">
-                                <input id="datetimepicker" type="text" class="form-control" placeholder="11/02/2020">
+                                <input name="check_in" autocomplete="off" type="text" required class="form-control dt_picker" placeholder="yyyy-mm-dd">
                                 <span class="input-group-addon"></span>
                             </div>
                             <i class='bx bxs-chevron-down'></i>
@@ -37,8 +38,7 @@
                         <div class="form-group">
                             <label>CHECK OUT TIME</label>
                             <div class="input-group">
-                                <input id="datetimepicker-check" type="text" class="form-control"
-                                    placeholder="11/02/2020">
+                                <input name="check_out" autocomplete="off" type="text" required class="form-control dt_picker" placeholder="yyyy-mm-dd">
                                 <span class="input-group-addon"></span>
                             </div>
                             <i class='bx bxs-chevron-down'></i>
@@ -48,7 +48,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="form-group">
                             <label>GUESTS</label>
-                            <select class="form-control">
+                            <select name="persion" class="form-control">
                                 <option>01</option>
                                 <option>02</option>
                                 <option>03</option>

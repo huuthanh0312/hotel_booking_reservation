@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\TeamController;
 use App\Http\Controllers\Backend\RoomTypeController;
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,8 @@ require __DIR__.'/auth.php';
 
 // Admin routes login
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
+Route::post('/admin/store/', [AuthenticatedSessionController::class, 'AdminStore'])->name('admin.store');
 
 
 //Admin group Middleware Routes
@@ -133,5 +137,36 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 Route::controller(FrontendRoomController::class)->group(function (){
     Route::get('/rooms/', 'AllRoom' )->name('all.room.frontend');
 
-    Route::get('/rooms/details/{id}', 'DetailsRoomPage' )->name('details.froom');
+    Route::get('/rooms-details/{id}', 'DetailsRoomPage' )->name('details.froom');
+
+    // booking search
+    Route::post('/booking-search/', 'BookingSearch' )->name('booking.search');
+
+    // Details serach room
+    Route::get('/search-rooms-details/{id}', 'SearchRoomDetails' )->name('search.room.details');
+
+    // Check room available room
+    Route::get('/check-room-availability', 'CheckRoomAvailablity' )->name('check.room.availability');
+
 });
+
+
+//Auth group Middleware Routes with function User Booking
+Route::middleware(['auth'])->group(function (){
+
+    Route::controller(BookingController::class)->group(function (){
+        //  Booking 
+        Route::post('/booking-store', 'BookingStore' )->name('user.booking.store');
+        // Check out 
+        Route::get('/checkout', 'Checkout' )->name('checkout');
+
+        // Check out 
+        Route::post('/checkout-store', 'CheckoutStore' )->name('checkout.store');
+        
+        //payment stripe 
+        
+        Route::match(['get', 'post'],'/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
+    
+    }); // end group booking
+
+}); // End  Group Middleware User 

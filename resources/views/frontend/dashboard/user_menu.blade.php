@@ -14,7 +14,7 @@
                 <p>{{$profileData->email}}</p>
             </center> 
 
-            <ul>
+            <ul class="text-center">
 
                 <li>
                     <a href="{{route('dashboard')}}">User Dashboard</a>

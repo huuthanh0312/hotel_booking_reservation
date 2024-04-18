@@ -104,4 +104,5 @@ class FrontendRoomController extends Controller
 
         return response()->json(['available_room'=>$av_room, 'total_nights'=>$nights]);
     }
+    
 }

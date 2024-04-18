@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\RoomTypeController;
 use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Backend\RoomListController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,44 +91,73 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     // Routes Room Type Controller
     Route::controller(RoomTypeController::class)->group(function (){
-        Route::get('/room/type/list', 'RoomTypeList' )->name('room.type.list');
+        Route::get('/room-type/list', 'RoomTypeList' )->name('room.type.list');
 
-        Route::get('/room/type/add', 'RoomTypeAdd' )->name('room.type.add');
+        Route::get('/room-type/add', 'RoomTypeAdd' )->name('room.type.add');
 
-        Route::post('/room/type/store', 'RoomTypeStore' )->name('room.type.store');
+        Route::post('/room-type/store', 'RoomTypeStore' )->name('room.type.store');
 
-        Route::get('/room/type/edit/{id}', 'RoomTypeEdit' )->name('room.type.edit');
+        Route::get('/room-type/edit/{id}', 'RoomTypeEdit' )->name('room.type.edit');
 
-        Route::post('/room/type/update', 'RoomTypeUpdate' )->name('room.type.update');
+        Route::post('/room-type/update', 'RoomTypeUpdate' )->name('room.type.update');
 
 
     });
 
-        // Routes Room Controller
-        Route::controller(RoomController::class)->group(function (){
+    // Routes Room Controller
+    Route::controller(RoomController::class)->group(function (){
 
-            Route::get('/room/edit/{id}', 'RoomEdit' )->name('edit.room');
-    
-            Route::post('/room/update/{id}', 'RoomUpdate' )->name('update.room');
-    
-            Route::get('/multi/images/delete/{id}', 'MultiImageDelete' )->name('multi.image.delete');
-    
+        Route::get('/room/edit/{id}', 'RoomEdit' )->name('edit.room');
 
-            // Add Room Number
-            Route::post('/room/number/{id}', 'StoreRoomNumber' )->name('store.room.no');
+        Route::post('/room/update/{id}', 'RoomUpdate' )->name('update.room');
 
-            Route::get('/room/number/edit/{id}', 'EditRoomNumber' )->name('edit.room.no');
-
-            Route::post('/room/number/update/{id}', 'UpdateRoomNumber' )->name('update.room.no');
-    
-            Route::get('/room/number/delete/{id}', 'DeleteRoomNumber' )->name('delete.room.no');
-
-            ////////////////// Room Type And Room Relationship method delete ////////////////////
-            Route::get('/room/delete/{id}', 'RoomDelete' )->name('delete.room');
-            //////////////////End  Room Type And Room Relationship method delete ////////////////////
-        });
+        Route::get('/multi-images/delete/{id}', 'MultiImageDelete' )->name('multi.image.delete');
 
 
+        // Add Room Number
+        Route::post('/room-number/{id}', 'StoreRoomNumber' )->name('store.room.no');
+
+        Route::get('/room-number/edit/{id}', 'EditRoomNumber' )->name('edit.room.no');
+
+        Route::post('/room-number/update/{id}', 'UpdateRoomNumber' )->name('update.room.no');
+
+        Route::get('/room-number/delete/{id}', 'DeleteRoomNumber' )->name('delete.room.no');
+
+        ////////////////// Room Type And Room Relationship method delete ////////////////////
+        Route::get('/room/delete/{id}', 'RoomDelete' )->name('delete.room');
+        //////////////////End  Room Type And Room Relationship method delete ////////////////////
+    });
+
+    //Admin Routes Booking Request payment ... Frontend/Booking Controller
+    Route::controller(BookingController::class)->group(function (){
+        //list booking
+        Route::get('/booking/list', 'BookingList' )->name('booking.list');
+
+        // Info Edit Booking 
+        Route::get('/booking/edit/{id}', 'EditBooking' )->name('edit_booking');
+
+        // Update Status Booking
+        Route::post('/booking/update/status/{id}', 'UpdateBookingStatus' )->name('booking.update.status');
+       
+        // Update Booking
+        Route::post('/booking/update/{id}', 'UpdateBooking' )->name('update.booking');
+           
+        
+        // assign room booking 
+        Route::get('/booking/assign-room/{id}', 'AssignRoom' )->name('assign_room');
+
+        // assign room booking 
+        Route::get('/booking/assign-room/store/{booking_id}/{room_number_id}', 'AssignRoomStore' )->name('assign_room_store');
+        // assign room booking  delete
+        Route::get('/booking/assign-room/delete/{id}', 'AssignRoomDelete' )->name('assign_room_delete');
+    });
+
+    // Routes Room List Controller
+    Route::controller(RoomListController::class)->group(function (){
+        Route::get('/room-list/view', 'ViewRoomList' )->name('view.room.list');
+
+        
+    });
 
 }); // End Admin Group Middleware
 
@@ -137,10 +168,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 Route::controller(FrontendRoomController::class)->group(function (){
     Route::get('/rooms/', 'AllRoom' )->name('all.room.frontend');
 
-    Route::get('/rooms-details/{id}', 'DetailsRoomPage' )->name('details.froom');
+    Route::get('/rooms/details/{id}', 'DetailsRoomPage' )->name('details.froom');
 
     // booking search
-    Route::post('/booking-search/', 'BookingSearch' )->name('booking.search');
+    Route::post('/booking/search/', 'BookingSearch' )->name('booking.search');
 
     // Details serach room
     Route::get('/search-rooms-details/{id}', 'SearchRoomDetails' )->name('search.room.details');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookingRoomList;
+use App\Models\RoomNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Auth;
@@ -13,6 +15,7 @@ use App\Models\Room;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\Booking;
+use App\Models\RoomType;
 use Stripe;
 
 class BookingController extends Controller
@@ -131,7 +134,6 @@ class BookingController extends Controller
             $data->payment_status = 0;
         }
        
-
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
@@ -169,4 +171,129 @@ class BookingController extends Controller
         return redirect('/')->with($notification);
 
     }// end methods
-}
+
+    // Admin Booking Request 
+    public function BookingList() {
+        $allData = Booking::orderBy('id', 'desc')->get();
+
+        return view('backend.booking.booking_list', compact('allData'));
+    }// end methods
+    
+    // Info Edit Booking
+    public function EditBooking( $id ) {
+        $editData = Booking::with('room')->find($id);
+
+        return view('backend.booking.edit_booking', compact('editData'));
+    }// end methods
+
+    // Update Booking Status
+    public function UpdateBookingStatus(Request $request, $id){
+        $booking = Booking::find($id);
+        $booking->payment_status = $request->payment_status;
+        $booking->status = $request->status;
+        $booking->save();
+
+        $notification = array(
+            'message'=> 'Infomation Booking Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }// end methods
+
+    //Update Booking Admin
+    public function UpdateBooking(Request $request, $id){
+        if($request->available_room < $request->number_of_rooms){
+            $notification = array(
+                'message'=> 'Something Warn To Worng!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+        $data = Booking::find($id);
+        $data->number_of_rooms = $request->number_of_rooms;
+        $data->check_in = date('Y-m-d', strtotime($request->check_in));
+        $data->check_out = date('Y-m-d', strtotime($request->check_out));
+
+        $data->save();
+        BookingRoomList::where('booking_id', $id)->delete();
+        RoomBookedDate::where('booking_id', $id)->delete();
+        // add booking dated data 
+        $sdate = date('Y-m-d', strtotime($request->check_in)); //get data date check in and custom
+        $edate = date('Y-m-d', strtotime($request->check_out)); //get data date check out and custom
+        $eldate = Carbon::create($edate)->subDay();
+
+        $d_period = CarbonPeriod::create($sdate, $eldate); //get array day 2024-4-6/2024-4-7/2024-4-8/
+
+        foreach($d_period as $period){
+            $book_dates = new RoomBookedDate();
+            $book_dates->booking_id = $data->id;
+            $book_dates->rooms_id = $data->rooms_id;
+            $book_dates->book_date = date('Y-m-d', strtotime($period));
+            $book_dates->save();
+        }
+        $notification = array(
+            'message'=> 'Updated Booking Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+
+    }// end methods
+
+
+    // assign room
+    public function AssignRoom($booking_id){
+        $booking = Booking::find($booking_id);
+        $booking_date_array = RoomBookedDate::where('booking_id', $booking_id)->pluck('book_date')->toArray();
+
+        $check_date_booking_ids = RoomBookedDate::whereIn('book_date', $booking_date_array)
+                                ->where('rooms_id', $booking->rooms_id)->distinct()->pluck('booking_id')->toArray();
+        $booking_ids = Booking::whereIn('id', $check_date_booking_ids)->pluck('id')->toArray();
+        
+        $assign_room_ids = BookingRoomList::whereIn('booking_id', $booking_ids)->pluck('room_number_id')->toArray();
+
+        $room_numbers = RoomNumber::where('rooms_id', $booking->rooms_id)->whereNotIn('id', $assign_room_ids)
+                                ->where('status', 'active')->get();
+
+        return View('backend.booking.assign_room', compact('booking', 'room_numbers'));
+    }// end methods
+
+    // assign room store
+    public function AssignRoomStore($booking_id, $room_number_id){
+        $booking = Booking::find($booking_id);
+        
+        $check_room_list = BookingRoomList::where('booking_id', $booking_id)->count();
+
+        if($check_room_list < $booking->number_of_rooms){
+            $assign_data = new BookingRoomList();
+            $assign_data->booking_id = $booking_id;
+            $assign_data->rooms_id = $booking->rooms_id;
+            $assign_data->room_number_id = $room_number_id;
+            $assign_data->save();
+
+            $notification = array(
+                'message'=> 'Room Assign Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } else{
+            $notification = array(
+                'message'=> 'Something Warn To Worng!',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+        
+    }// end methods
+
+    public function AssignRoomDelete($id){
+        $assign_room = BookingRoomList::find($id);
+        $assign_room->delete();
+        $notification = array(
+            'message'=> 'Deleted Room Assign Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+}// end methods

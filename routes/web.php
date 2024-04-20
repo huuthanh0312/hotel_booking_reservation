@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -169,6 +170,18 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         
     });
 
+    // SettingController
+    Route::controller(SettingController::class)->group(function (){
+        //// SMTP Setting
+        Route::get('/smtp-setting', 'SmtpSetting' )->name('smtp.setting');
+
+        Route::post('/smtp-setting/update', 'UpdateSmtpSetting' )->name('smtp.update');
+
+        
+
+        
+    });
+
 }); // End Admin Group Middleware
 
 
@@ -207,7 +220,14 @@ Route::middleware(['auth'])->group(function (){
         //payment stripe 
         
         Route::match(['get', 'post'],'/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
-    
+        
+        //  User Booking  Route
+        Route::get('/user-booking', 'UserBooking' )->name('user.booking');
+        //user invoice Route
+        Route::get('/user-invoice/{id}', 'UserInvoice' )->name('user.invoice');
+
+
+
     }); // end group booking
 
 }); // End  Group Middleware User 

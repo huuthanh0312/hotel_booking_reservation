@@ -17,6 +17,8 @@ use Carbon\CarbonPeriod;
 use App\Models\Booking;
 use App\Models\RoomType;
 use Stripe;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class BookingController extends Controller
 {
@@ -287,6 +289,7 @@ class BookingController extends Controller
         
     }// end methods
 
+    // Delete Assign Room
     public function AssignRoomDelete($id){
         $assign_room = BookingRoomList::find($id);
         $assign_room->delete();
@@ -295,5 +298,18 @@ class BookingController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-    }
+    }// end methods
+
+
+    //--------------- PDF ----------------//
+    public function DownloadInvoice($id){
+        $editData = Booking::with('room')->find($id);
+        $pdf = Pdf::loadView('backend.booking.booking_invoice', compact('editData'))
+                    ->setOption('a4')->setOption([
+                        'tempDir' => public_path(),
+                        'chroot' => public_path(),
+                    ]);
+        return $pdf->download('invoice.pdf');
+
+    }// end methods
 }// end methods

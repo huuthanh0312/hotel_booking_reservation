@@ -189,10 +189,12 @@
                                     
                                 </select>
                             </div>
-                            <div class="col-md-12 p-2 m-1">
+                            <div class="col-md-12 p-2 m-1 pt-3">
                                 <div class="d-md-flex d-grid align-items-center gap-3">                    
-                                    <button type="submit" class="btn btn-primary px-4">Update</button>
+                                    <button type="submit" class="btn btn-primary px-3 radius-30">Update</button>
+                                    <a href="{{route('download.invoice', $editData->id)}}" class="btn btn-warning px-3 radius-30"><i class="lni lni-download"></i>Download Invoice PDF</a>
                                 </div>
+                               
                             </div>
                         </div>   
                     </form>

@@ -148,13 +148,23 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
         // assign room booking 
         Route::get('/booking/assign-room/store/{booking_id}/{room_number_id}', 'AssignRoomStore' )->name('assign_room_store');
+        
         // assign room booking  delete
         Route::get('/booking/assign-room/delete/{id}', 'AssignRoomDelete' )->name('assign_room_delete');
+
+        // Download PDF invoice
+        Route::get('/download-invoice/{id}', 'DownloadInvoice' )->name('download.invoice');
+
     });
 
     // Routes Room List Controller
     Route::controller(RoomListController::class)->group(function (){
+
         Route::get('/room-list/view', 'ViewRoomList' )->name('view.room.list');
+
+        Route::get('/room-list/add', 'AddRoomList' )->name('add.room.list');
+
+        Route::post('/room-list/store', 'StoreRoomList' )->name('store.room.list');
 
         
     });

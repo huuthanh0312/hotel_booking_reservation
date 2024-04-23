@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
@@ -12,7 +14,7 @@ use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Backend\RoomListController;
-
+use App\Http\Controllers\Backend\TestimonialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -178,10 +180,40 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         Route::post('/smtp-setting/update', 'UpdateSmtpSetting' )->name('smtp.update');
 
         
-
-        
     });
 
+        // TestimonialController
+        Route::controller(TestimonialController::class)->group(function (){
+            //// 
+            Route::get('/testimonial/all', 'AllTestimonial' )->name('testimonial.all');
+    
+            Route::get('/testimonial/add', 'AddTestimonial' )->name('testimonial.add');
+    
+            Route::post('/testimonial/store', 'StoreTestimonial' )->name('testimonial.store');
+    
+            Route::get('/testimonial/edit/{id}', 'EditTestimonial' )->name('testimonial.edit');
+
+            Route::post('/testimonial/update', 'UpdateTestimonial' )->name('testimonial.update');
+    
+            Route::get('/testimonial/delete/{id}', 'DelteTestimonial' )->name('testimonial.delete');
+    
+        });
+
+        // BlogControllerController
+        Route::controller(BlogCategoryController::class)->group(function (){
+            //// 
+            Route::get('/blog-category/all', 'AllBlogCategory' )->name('blog.category.all');
+    
+    
+            Route::post('/blog-category/store', 'StoreBlogCategory' )->name('blog.category.store');
+    
+            Route::get('/blog-category/edit/{id}', 'EditBlogCategory' )->name('blog.category.edit');
+
+            Route::post('/blog-category/update', 'UpdateBlogCategory' )->name('blog.category.update');
+    
+            Route::get('/blog-category/delete/{id}', 'DeleteBlogCategory' )->name('blog.category.delete');
+    
+        });
 }); // End Admin Group Middleware
 
 

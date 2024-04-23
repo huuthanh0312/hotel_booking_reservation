@@ -65,7 +65,7 @@
                                                                 @if ($item->status == 1)
                                                                     <span class="badge bg-success">Completed</span>
                                                                 @else
-                                                                <span class="badge bg-danger">Completed</span>
+                                                                <span class="badge bg-danger">Pending</span>
                                                                 @endif
                                                             </td>
                                                         </tr>

@@ -95,10 +95,33 @@
                 <div class="menu-title">Setting</div>
             </a>
             <ul>
-                <li> <a href="{{route('smtp.setting')}}"><i class='bx bx-setting'></i>SMTP Setting</a>
+                <li> <a href="{{route('smtp.setting')}}"><i class='bx bx-radio-circle'></i>SMTP Setting</a>
                 </li>
-                <li> <a href="{{route('add.room.list')}}"><i class='bx bx-radio-circle'></i>Add Room List</a>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Testimonial</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('testimonial.all')}}"><i class='bx bx-radio-circle'></i>All Testimonial </a>
                 </li>
+                <li> <a href="{{route('testimonial.add')}}"><i class='bx bx-radio-circle'></i>Add Testimonial</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Blog</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('blog.category.all')}}"><i class='bx bx-radio-circle'></i>All Blog Category </a>
+                </li>
+                
             </ul>
         </li>
         <li class="menu-label">Others</li>

@@ -17,12 +17,7 @@
                 </ol>
             </nav>
         </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <a href="{{ route('add.team')}}" class="btn btn-outline-primary px-5 radius-30">Add Booking</a>
-                
-            </div>
-        </div>
+        
     </div>
     <!--end breadcrumb-->
     <h6 class="mb-0 text-uppercase">DataTable All Bookings</h6>
@@ -79,16 +74,7 @@
                         </tr>
                         @endforeach
                     </tbody>
-                    {{-- <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot> --}}
+                    
                 </table>
             </div>
         </div>

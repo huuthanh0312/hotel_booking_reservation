@@ -54,7 +54,7 @@
                             <h6 class="mb-0">Short Description</h6>
                         </div>
                         <div class="form-group col-sm-9 text-secondary">
-                            <textarea rows="5" name="short_desc"class="form-control" placeholder="Description" >
+                            <textarea rows="5" name="short_desc"class="form-control" placeholder="Description" id="content_tindy" >
                                 {{ $book->short_desc}} 
                             </textarea>
                         </div>

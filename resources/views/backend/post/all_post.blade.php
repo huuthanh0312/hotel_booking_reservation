@@ -9,19 +9,19 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Team</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Post</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
-                <a href="{{ route('add.team')}}" class="btn btn-outline-primary px-5 radius-30">Add Team</a>
+                <a href="{{ route('blog.post.add')}}" class="btn btn-outline-primary px-5 radius-30">Add Post</a>
                 
             </div>
         </div>
     </div>
     <!--end breadcrumb-->
-    <h6 class="mb-0 text-uppercase">DataTable All Teams</h6>
+    <h6 class="mb-0 text-uppercase">DataTable All Posts</h6>
     <hr />
     <div class="card">
         <div class="card-body">
@@ -30,27 +30,25 @@
                     <thead >
                         <tr>
                             <th>SL</th>
-                            <th>IMAGE</th>
-                            <th>NAME</th>
-                            <th>POSITION</th>
-                            <th>FACEBOOK</th>
+                            <th>POST TITLE</th>
+                            <th>CATEGORY</th>
+                            <th>POST IMAGE</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($teams as $key => $item)
+                        @foreach ($posts as $key => $item)
                           
                         <tr>
                             <td>{{ $key +1 }}</td>
-                            <td><img class="rounded-circle p-1 bg-primary" src="{{ (!empty($item->image)) ? url('upload/team/'.$item->image) 
-                                                             : url('upload/no_image.jpg')}}" width="50">
-                             </td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->position}}</td>
-                            <td>{{$item->facebook}}</td>
+                            <td>{{$item->post_title }}</td>
+                            <td>{{$item['blog_category']['category_name']}}</td>
+                            <td><img class="rounded-circle p-1 bg-primary" src="{{ (!empty($item->post_image)) ? url($item->post_image) 
+                                : url('upload/no_image.jpg')}}" width="50">
+                            </td>
                             <td>
-                                <a href="{{ route('team.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
-                                <a href="{{ route('team.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
+                                <a href="{{ route('blog.post.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
+                                <a href="{{ route('blog.post.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
                             </td>
                         </tr>
                         @endforeach

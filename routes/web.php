@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\BlogCategoryController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
@@ -160,7 +160,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     });
 
-    // Routes Room List Controller
+    // Routes Room List Routes
     Route::controller(RoomListController::class)->group(function (){
 
         Route::get('/room-list/view', 'ViewRoomList' )->name('view.room.list');
@@ -172,7 +172,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         
     });
 
-    // SettingController
+    // Setting Routes
     Route::controller(SettingController::class)->group(function (){
         //// SMTP Setting
         Route::get('/smtp-setting', 'SmtpSetting' )->name('smtp.setting');
@@ -182,7 +182,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         
     });
 
-        // TestimonialController
+        // Testimonial Routes
         Route::controller(TestimonialController::class)->group(function (){
             //// 
             Route::get('/testimonial/all', 'AllTestimonial' )->name('testimonial.all');
@@ -199,11 +199,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     
         });
 
-        // BlogControllerController
-        Route::controller(BlogCategoryController::class)->group(function (){
+        // Blog Category Routes
+        Route::controller(BlogController::class)->group(function (){
             //// 
             Route::get('/blog-category/all', 'AllBlogCategory' )->name('blog.category.all');
-    
     
             Route::post('/blog-category/store', 'StoreBlogCategory' )->name('blog.category.store');
     
@@ -214,6 +213,26 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
             Route::get('/blog-category/delete/{id}', 'DeleteBlogCategory' )->name('blog.category.delete');
     
         });
+
+        // Blog  Routes
+        Route::controller(BlogController::class)->group(function (){
+            //// 
+            Route::get('/blog-post/all', 'AllBlogPost' )->name('blog.post.all');
+    
+            Route::get('/blog-post/add', 'AddBlogPost' )->name('blog.post.add');
+    
+            Route::post('/blog-post/store', 'StoreBlogPost' )->name('blog.post.store');
+    
+            Route::get('/blog-post/edit/{id}', 'EditBlogPost' )->name('blog.post.edit');
+
+            Route::post('/blog-post/update', 'UpdateBlogPost' )->name('blog.post.update');
+    
+            Route::get('/blog-post/delete/{id}', 'DeleteBlogPost' )->name('blog.post.delete');
+    
+        });
+
+
+
 }); // End Admin Group Middleware
 
 
@@ -221,7 +240,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
 ////// Front End Show Controller 
 Route::controller(FrontendRoomController::class)->group(function (){
-    Route::get('/rooms/', 'AllRoom' )->name('all.room.frontend');
+    Route::get('/rooms', 'AllRoom' )->name('all.room.frontend');
 
     Route::get('/rooms/details/{id}', 'DetailsRoomPage' )->name('details.froom');
 
@@ -235,6 +254,17 @@ Route::controller(FrontendRoomController::class)->group(function (){
     Route::get('/check-room-availability', 'CheckRoomAvailablity' )->name('check.room.availability');
 
 });
+
+Route::controller(BlogController::class)->group(function (){
+    Route::get('/blog/details/{slug}', 'BlogDetails' );
+
+    Route::get('/blog-category/list/{id}', 'BlogCatList' );
+
+    Route::get('/blog/list', 'BlogList' )->name('blog.list');
+
+
+});
+/// end frontend show
 
 
 //Auth group Middleware Routes with function User Booking

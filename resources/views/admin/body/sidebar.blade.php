@@ -121,6 +121,8 @@
             <ul>
                 <li> <a href="{{route('blog.category.all')}}"><i class='bx bx-radio-circle'></i>All Blog Category </a>
                 </li>
+                <li> <a href="{{route('blog.post.all')}}"><i class='bx bx-radio-circle'></i>All Blog </a>
+                </li>
                 
             </ul>
         </li>

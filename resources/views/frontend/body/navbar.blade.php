@@ -27,10 +27,7 @@
                             
                         </li>
                         
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Restaurant </a>
-                            
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="{{route('all.room.frontend')}}" class="nav-link">
                                 All Rooms
@@ -48,14 +45,15 @@
                             
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">Restaurant </a>
+                            
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">Recreation </a>                           
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Blog
-                                <i class='bx bx-chevron-down'></i>
-                            </a>
+                            <a href="{{route('blog.list')}}" class="nav-link"> Blog</a>
                             
                         </li>
 

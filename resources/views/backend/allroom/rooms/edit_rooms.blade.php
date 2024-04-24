@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label for="myeditor" class="form-label">Description</label>
-                                                <textarea class="form-control" id="myeditor" name="description"
+                                                <textarea class="form-control" id="content_tindy"  name="description"
                                                     placeholder=" Descrption ..."
                                                     rows="5">{{ $editRoom->short_desc}}</textarea>
                                             </div>

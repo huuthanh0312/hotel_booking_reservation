@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
@@ -240,6 +241,27 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         Route::post('/comment/update/status', 'UpdateCommentStatus')->name('update.comment.status');
 
     });
+
+        // Booking Report
+        Route::controller(ReportController::class)->group(function (){
+            ///
+            Route::get('/booking/report', 'BookingReport' )->name('booking.report');
+
+            Route::post('/search-by-date', 'SearchByDate' )->name('search-by-date');
+    
+            
+        });
+
+        // Site Setting Routes
+        Route::controller(SettingController::class)->group(function (){
+            //// Site Setting
+            Route::get('/site-setting', 'SiteSetting' )->name('site.setting');
+
+            Route::post('/site-setting/update', 'UpdateSiteSetting' )->name('site.update');
+
+    
+});
+
 
 }); // End Admin Group Middleware
 

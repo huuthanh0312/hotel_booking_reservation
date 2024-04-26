@@ -46,61 +46,47 @@
                         <p>{!! $post->long_descp !!}</p>
                     </div>
 
+                    @php
+                        $comments = App\Models\Comment::where('post_id', $post->id)->where('status', '1')->limit(5)->get();
+                    @endphp
+                    @foreach ($comments as $com)
                     <div class="comments-wrap">
                         <h3 class="title">Comments</h3>
                         <ul>
                             <li>
-                                <img src="assets/img/blog/blog-profile1.jpg" alt="Image">
-                                <h3>Megan Fox</h3>
-                                <span>October 14, 2020, 12:10 PM</span>
+                                <img src="{{!empty($com->user->photo) ? url('upload/user_images/'.$com->user->photo) : url('upload/no_image.jpg')}}" alt="Image" width="50px">
+                                <h3>{{$com->user->name}}</h3>
+                                <span>{{$com->created_at->format('M d Y')}}</span>
                                 <p>
-                                    Engineering requires many building blocks and tools. To produce real world
-                                    results & one must mathematics and sciences to tangible problems and we
-                                    are one of the best company in the world.
+                                    {{$com->message}}
                                 </p>
-
-                            </li>
-
-                            <li>
-                                <img src="assets/img/blog/blog-profile2.jpg" alt="Image">
-                                <h3>Mike Thomas</h3>
-                                <span>October 14, 2020, 11:30 AM</span>
-                                <p>
-                                    Engineering requires many building blocks and tools. To produce real world
-                                    results & one must mathematics and sciences to tangible problems and we
-                                    are one of the best company in the world.
-                                </p>
-
                             </li>
                         </ul>
                     </div>
-
+                    @endforeach
+                    
+                    @php
+                    if(Auth::check()){
+                        $id = Auth::user()->id;
+                        $userData = App\Models\User::find($id);
+                        
+                    }else{
+                        $userData = null;
+                    }
+                                           
+                    @endphp
+                    @auth
                     <div class="comments-form">
                         <div class="contact-form">
                             <h2>Leave A Comment</h2>
-                            <form id="contactForm">
+                            <form method="post" action="{{route('comment.store')}}">
+                                @csrf
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-6">
-                                        <div class="form-group">
-                                            <input type="text" name="name" id="name" class="form-control" required
-                                                data-error="Please enter your name" placeholder="Your Name">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-6">
-                                        <div class="form-group">
-                                            <input type="email" name="email" id="email" class="form-control" required
-                                                data-error="Please enter your email" placeholder="Your Email">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-sm-12">
-                                        <div class="form-group">
-                                            <input type="text" name="websit" class="form-control" required
-                                                data-error="Your website" placeholder="Your website">
-                                        </div>
-                                    </div>
-
+                                    <input type="hidden" name="post_id" value="{{$post->id}}">
+                                    @if ($userData)
+                                    <input type="hidden" name="user_id" value="{{$userData->id}}">
+                                    @endif
+                                    
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <textarea name="message" class="form-control" id="message" cols="30"
@@ -108,8 +94,6 @@
                                                 placeholder="Your Message"></textarea>
                                         </div>
                                     </div>
-
-
                                     <div class="col-lg-12 col-md-12">
                                         <button type="submit" class="default-btn btn-bg-three">
                                             Post A Comment
@@ -119,6 +103,16 @@
                             </form>
                         </div>
                     </div>
+                    @else
+                    <div class="comments-form">
+                        <div class="contact-form">
+                            <div class="alert alert-warning p-4">
+                                Please <a href="{{url('/login')}}">Login </a> first for add Comment
+                            </div>
+                        </div>
+                    </div>
+                    @endauth
+                    
                 </div>
             </div>
 

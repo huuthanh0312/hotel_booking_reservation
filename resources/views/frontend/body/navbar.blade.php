@@ -47,17 +47,18 @@
                             
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Restaurant </a>
-                            
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Recreation </a>                           
-                        </li>
-
-                        <li class="nav-item">
                             <a href="{{route('blog.list')}}" class="nav-link"> Blog</a>
                             
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('show.gallery')}}" class="nav-link">Gallery</a> </a>
+                            
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Restaurant </a>                           
+                        </li>
+
+                        
 
                         <li class="nav-item">
                             <a href="about.html" class="nav-link">
@@ -65,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="contact.html" class="nav-link">
+                            <a href="{{route('contact.us')}}" class="nav-link">
                                 Contact
                             </a>
                         </li>

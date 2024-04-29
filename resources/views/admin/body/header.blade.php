@@ -1,7 +1,4 @@
-{{-- @extends('adin.admin_dashboard')
-
-@section('header')
-     --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 @php
    $id = Auth::user()->id;
    $profileData = App\Models\User::find($id); 
@@ -30,33 +27,39 @@
                         <a class="nav-link dark-mode-icon" href="javascript:;"><i class='bx bx-moon'></i>
                         </a>
                     </li>
-
-
+                    @php
+                        $user = Auth::user();
+                        $ncount = Auth::user()->unreadNotifications()->count();
+                    @endphp
+                    {{-- Notification Booking --}}
                     <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" 
-                            href="#" data-bs-toggle="dropdown"><span class="alert-count">7</span>
+                            href="#" data-bs-toggle="dropdown"><span class="alert-count" id="notification-count">{{$ncount}}</span>
                             <i class='bx bx-bell'></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="javascript:;">
                                 <div class="msg-header">
                                     <p class="msg-header-title">Notifications</p>
-                                    <p class="msg-header-badge">8 New</p>
+                                    <p class="msg-header-badge">{{$ncount}} New</p>
                                 </div>
                             </a>
                             <div class="header-notifications-list">
-                                <a class="dropdown-item" href="javascript:;">
+                               
+                                @forelse ($user->notifications as $notification)
+                                <a class="dropdown-item" onclick="markNotificationAsRead('{{$notification->id}}')">
                                     <div class="d-flex align-items-center">
-                                        <div class="user-online">
-                                            <img src="assets/images/avatars/avatar-1.png" class="msg-avatar" alt="user avatar">
-                                        </div>
+                                        <div class="notify bg-light-success text-success"><i class="bx bx-check-square"></i></div>
                                         <div class="flex-grow-1">
-                                            <h6 class="msg-name">Daisy Anderson<span class="msg-time float-end">5 sec
-                                        ago</span></h6>
-                                            <p class="msg-info">The standard chunk of lorem</p>
+                                            <h6 class="msg-name">{{$notification->data['message']}}
+                                                <span class="msg-time float-end">{{ Carbon\Carbon::parse($notification->create_at)->diffForHumans()}}</span></h6>
+                                            <p class="msg-info">New Booking</p>
                                         </div>
                                     </div>
                                 </a>
+                                @empty
+                                    
+                                @endforelse
                             </div>
                             <a href="javascript:;">
                                 <div class="text-center msg-footer">
@@ -65,6 +68,8 @@
                             </a>
                         </div>
                     </li>
+                    {{-- end notification booking --}}
+
                     <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" 
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">8</span>
@@ -78,6 +83,7 @@
                                 </div>
                             </a>
                             <div class="header-message-list">
+                                
                                 <a class="dropdown-item" href="javascript:;">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="position-relative">
@@ -86,8 +92,8 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="cart-product-title mb-0">Men White T-Shirt</h6>
-                                            <p class="cart-product-price mb-0">1 X $29.00</p>
+                                            <h6 class="cart-product-title mb-0"></h6>
+                                            <p class="cart-product-price mb-0"></p>
                                         </div>
                                         <div class="">
                                             <p class="cart-price mb-0">$250</p>
@@ -95,25 +101,10 @@
                                         <div class="cart-product-cancel"><i class="bx bx-x"></i>
                                         </div>
                                     </div>
-                                </a>
-                                <a class="dropdown-item" href="javascript:;">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="position-relative">
-                                            <div class="cart-product rounded-circle bg-light">
-                                                <img src="assets/images/products/02.png" class="" alt="product image">
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="cart-product-title mb-0">Men White T-Shirt</h6>
-                                            <p class="cart-product-price mb-0">1 X $29.00</p>
-                                        </div>
-                                        <div class="">
-                                            <p class="cart-price mb-0">$250</p>
-                                        </div>
-                                        <div class="cart-product-cancel"><i class="bx bx-x"></i>
-                                        </div>
-                                    </div>
-                                </a>
+                                </a>  
+                                
+                                
+                               
                              
                             </div>
                             <a href="javascript:;">
@@ -164,4 +155,24 @@
     </div>
 </header>
 
-{{-- @endsection --}}
+<script>
+    function markNotificationAsRead(notificationId){
+        fetch('/mark-notification-as-read/'+ notificationId, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+                'X-CSRF-TOKEN' : '{{csrf_token()}}',
+            },
+            body: JSON.stringify({})
+
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('notification-count').textContent = data.count;
+                console.log(data);
+            })
+            .catch(error => {
+                console.log('Error', error);
+            });
+    }
+</script>

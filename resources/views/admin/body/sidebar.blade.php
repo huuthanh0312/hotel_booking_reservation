@@ -150,6 +150,29 @@
                 </li>               
             </ul>
         </li>
+
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Gallery</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('gallery.all')}}"><i class='bx bx-radio-circle'></i>All Gallery </a>
+                </li>
+                <li> <a href="{{route('gallery.add')}}"><i class='bx bx-radio-circle'></i>Add Gallery </a>
+                </li>
+                
+            </ul>
+        </li>
+        <li>
+            <a class="" href="{{route('contact.message')}}">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Contact Messages</div>
+            </a>
+            
+        </li>
         <li class="menu-label">Others</li>
         <li>
             <a href="https://themeforest.net/user/codervent" target="_blank">

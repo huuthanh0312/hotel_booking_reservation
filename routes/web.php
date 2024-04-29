@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
@@ -260,9 +261,35 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
             Route::post('/site-setting/update', 'UpdateSiteSetting' )->name('site.update');
 
     
-});
+        });
 
+        // Gallery Setting Routes
+        Route::controller(GalleryController::class)->group(function (){
+            //// gallery Setting
+            Route::get('/gallery/all', 'AllGallery' )->name('gallery.all');
 
+            Route::get('/gallery/add', 'AddGallery' )->name('gallery.add');
+
+            Route::post('/gallery/store', 'StoreGallery' )->name('gallery.store');
+            
+            Route::get('/gallery/edit/{id}', 'EditGallery' )->name('gallery.edit');
+
+            Route::post('/gallery/update', 'UpdateGallery' )->name('gallery.update');
+            
+            Route::get('/gallery/delete/{id}', 'DeleteGallery' )->name('gallery.delete');
+
+            ///// delete Multiple Gallery
+            
+            Route::post('/gallery/delete/multiple', 'DeleteGallaryMultiple' )->name('delete.gallary.multiple');
+
+        });
+
+        // Contact Setting Send Admin Routes
+        Route::controller(GalleryController::class)->group(function (){
+           
+            Route::get('/contact/message', 'AdminContactMessage' )->name('contact.message');
+
+        });
 }); // End Admin Group Middleware
 
 
@@ -285,6 +312,7 @@ Route::controller(FrontendRoomController::class)->group(function (){
 
 });
 
+///// Frontend Blog Routes
 Route::controller(BlogController::class)->group(function (){
         Route::get('/blog/details/{slug}', 'BlogDetails' );
 
@@ -295,9 +323,21 @@ Route::controller(BlogController::class)->group(function (){
 
 });
 
+/// Frontend Comment Routes
 Route::controller(CommentController::class)->group(function (){
         Route::post('/comment/store', 'StoreComment' )->name('comment.store');
 
+});
+
+/// Frontend Gallery Routes And Cont
+Route::controller(GalleryController::class)->group(function (){
+    Route::get('/gallery', 'ShowGallery' )->name('show.gallery');
+
+    // >>> Router Contact form message  <<<< //
+    Route::get('/contact', 'ContactUs' )->name('contact.us');
+
+    // send messgae user to admin
+    Route::post('/contact/sotre', 'ContactSTore' )->name('contact.store');
 
 });
 
@@ -325,8 +365,14 @@ Route::middleware(['auth'])->group(function (){
         //user invoice Route
         Route::get('/user-invoice/{id}', 'UserInvoice' )->name('user.invoice');
 
-
-
     }); // end group booking
 
 }); // End  Group Middleware User 
+
+
+///// Notifiaction  Booking Check Out
+Route::controller(BookingController::class)->group(function (){
+    //  Booking 
+    Route::post('/mark-notification-as-read/{notificationId}', 'MarkAsRead' );
+
+}); // end group booking  

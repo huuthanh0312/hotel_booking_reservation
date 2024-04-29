@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Backend\CommentController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\RoomListController;
 use App\Http\Controllers\Backend\TestimonialController;
 /*
@@ -288,6 +289,50 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         Route::controller(GalleryController::class)->group(function (){
            
             Route::get('/contact/message', 'AdminContactMessage' )->name('contact.message');
+
+        });
+
+
+        // Setup role permisson
+        Route::controller(RoleController::class)->group(function (){
+            ///// Permission CRUD
+           
+            Route::get('/permission/all', 'AllPermission' )->name('permission.all');
+
+            Route::get('/permission/add', 'AddPermission' )->name('permission.add');
+
+            Route::post('/permission/store', 'StorePermission' )->name('permission.store');
+           
+            Route::get('/permission/edit/{id}', 'EditPermission' )->name('permission.edit');
+
+            Route::post('/permission/update', 'UpdatePermission' )->name('permission.update');
+
+            Route::get('/permission/delete/{id}', 'DeletePermission' )->name('permission.delete');
+
+            /// import And Export Permission
+           
+            Route::get('/permission/import', 'ImportPermission' )->name('permission.import');
+           
+            Route::get('/export', 'Export' )->name('export');
+
+            Route::post('/import', 'Import' )->name('import');
+        });
+
+
+        ////// Role route
+        Route::controller(RoleController::class)->group(function (){
+              ///// Permission CRUD
+            Route::get('/roles/all', 'AllRoles' )->name('roles.all');
+
+            Route::get('/roles/add', 'AddRoles' )->name('roles.add');
+
+            Route::post('/roles/store', 'StoreRoles' )->name('roles.store');
+           
+            Route::get('/roles/edit/{id}', 'EditRoles' )->name('roles.edit');
+
+            Route::post('/permission/update', 'UpdateRoles' )->name('roles.update');
+
+            Route::get('/roles/delete/{id}', 'DeleteRoles' )->name('roles.delete');
 
         });
 }); // End Admin Group Middleware

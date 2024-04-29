@@ -166,21 +166,28 @@
             </ul>
         </li>
         <li>
-            <a class="" href="{{route('contact.message')}}">
+            <a class="" target="_blank" href="{{route('contact.message')}}">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
                 <div class="menu-title">Contact Messages</div>
             </a>
             
         </li>
-        <li class="menu-label">Others</li>
+        <li class="menu-label">Role & Permissions</li>
         <li>
-            <a href="https://themeforest.net/user/codervent" target="_blank">
-                <div class="parent-icon"><i class="bx bx-support"></i>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-add-to-queue'></i>
                 </div>
-                <div class="menu-title">Setting</div>
+                <div class="menu-title">Role Permission</div>
             </a>
+            <ul>
+                <li> <a href="{{route('permission.all')}}"><i class='bx bx-radio-circle'></i>All Permission </a>
+                </li>
+                <li> <a href="{{route('roles.all')}}"><i class='bx bx-radio-circle'></i>All Roles </a>
+                </li>
+            </ul>
         </li>
+        
         <li>
             <a href="https://themeforest.net/user/codervent" target="_blank">
                 <div class="parent-icon"><i class="bx bx-support"></i>

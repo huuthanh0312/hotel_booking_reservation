@@ -188,7 +188,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     // Testimonial Routes
     Route::controller(TestimonialController::class)->group(function (){
-        //// 
+        //// testimonial CRUD
         Route::get('/testimonial/all', 'AllTestimonial' )->name('testimonial.all');
 
         Route::get('/testimonial/add', 'AddTestimonial' )->name('testimonial.add');
@@ -205,7 +205,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     // Blog Category Routes
     Route::controller(BlogController::class)->group(function (){
-        //// 
+        ////  Blog Category CRUD
         Route::get('/blog-category/all', 'AllBlogCategory' )->name('blog.category.all');
 
         Route::post('/blog-category/store', 'StoreBlogCategory' )->name('blog.category.store');
@@ -220,7 +220,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     // Blog  Routes
     Route::controller(BlogController::class)->group(function (){
-        //// 
+        //// Blog CRUD
         Route::get('/blog-post/all', 'AllBlogPost' )->name('blog.post.all');
 
         Route::get('/blog-post/add', 'AddBlogPost' )->name('blog.post.add');
@@ -266,7 +266,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
         // Gallery Setting Routes
         Route::controller(GalleryController::class)->group(function (){
-            //// gallery Setting
+            //// gallery Setting CRUD
             Route::get('/gallery/all', 'AllGallery' )->name('gallery.all');
 
             Route::get('/gallery/add', 'AddGallery' )->name('gallery.add');
@@ -334,7 +334,36 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
             Route::get('/roles/delete/{id}', 'DeleteRoles' )->name('roles.delete');
 
-        });
+
+            ///// Role In Permission
+            Route::get('/role-permission', 'AddRolePermission' )->name('role.permission.add');
+
+            Route::post('/role-permission/store', 'StoreRolePermission' )->name('role.permission.store');
+
+            Route::get('/role-permission/all', 'AllRolePermission' )->name('role.permission.all');
+
+            ///////// Admin Edit And Delete Roles
+            Route::get('/admin/role/edit/{id}', 'AdminEditRole' )->name('admin.roles.edit');
+
+            Route::post('/admin/role/update/{id}', 'AdminUpdateRole' )->name('admin.roles.update');
+
+            Route::get('/admin/role/delete/{id}', 'AdminDeleteRole' )->name('admin.roles.delete');
+
+
+        });//end controller
+
+
+
+      //Add and all  Admin User Routes
+      Route::controller(GalleryController::class)->group(function (){
+           
+        Route::get('/admin/all', 'AllAdmin' )->name('admin.all');
+
+        Route::get('/admin/add', 'AddAdmin' )->name('admin.add');
+
+    });
+
+
 }); // End Admin Group Middleware
 
 

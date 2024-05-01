@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use DB;
 
 class User extends Authenticatable
 {
@@ -49,4 +50,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public static function getPermissionGroups(){
+        $permission_groups = DB::table('permissions')->select('group_name')->groupBy('group_name')->get();
+        return $permission_groups;
+    }// end methods
+
+    public static function getPermissionGroupNAme($group_name){
+        $permission_group_name = DB::table('permissions')->where('group_name', $group_name)->select('id', 'name')->get();
+        // dd($permission_group_name);
+        return $permission_group_name;
+    }// end methods
+
+
+    ////// compare role check output : true or false
+    public static function roleHasPermissions($role, $permissions){
+       $hasPermission = true;
+       foreach($permissions as $per){
+            if(!$role->hasPermissionTo($per->name)){
+                return $hasPermission = false;
+            }
+       }
+       
+       return $hasPermission;
+
+    }// end methods
 }

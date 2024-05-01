@@ -185,9 +185,26 @@
                 </li>
                 <li> <a href="{{route('roles.all')}}"><i class='bx bx-radio-circle'></i>All Roles </a>
                 </li>
+                <li> <a href="{{route('role.permission.add')}}"><i class='bx bx-radio-circle'></i> Role In Permission </a>
+                </li>
+                <li> <a href="{{route('role.permission.all')}}"><i class='bx bx-radio-circle'></i>All Role In Permission </a>
+                </li>
             </ul>
         </li>
-        
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-user-circle'></i>
+                </div>
+                <div class="menu-title">Manage Admin User</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('admin.add')}}"><i class='bx bx-radio-circle'></i>All Admin </a>
+                </li>
+                <li> <a href="{{route('admim.all')}}"><i class='bx bx-radio-circle'></i>Add Admin </a>
+                </li>
+                
+            </ul>
+        </li>
         <li>
             <a href="https://themeforest.net/user/codervent" target="_blank">
                 <div class="parent-icon"><i class="bx bx-support"></i>

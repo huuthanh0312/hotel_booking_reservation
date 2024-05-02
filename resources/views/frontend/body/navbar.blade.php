@@ -54,17 +54,7 @@
                             <a href="{{route('show.gallery')}}" class="nav-link">Gallery</a> </a>
                             
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Restaurant </a>                           
-                        </li>
-
-                        
-
-                        <li class="nav-item">
-                            <a href="about.html" class="nav-link">
-                                About
-                            </a>
-                        </li>
+                 
                         <li class="nav-item">
                             <a href="{{route('contact.us')}}" class="nav-link">
                                 Contact
@@ -72,12 +62,12 @@
                         </li>
 
                         <li class="nav-item-btn">
-                            <a href="#" class="default-btn btn-bg-one border-radius-5">Book Now</a>
+                            <a href="{{route('all.room.frontend')}}" class="default-btn btn-bg-one border-radius-5">Book Now</a>
                         </li>
                     </ul>
 
                     <div class="nav-btn">
-                        <a href="#" class="default-btn btn-bg-one border-radius-5">Book Now</a>
+                        <a href="{{route('all.room.frontend')}}" class="default-btn btn-bg-one border-radius-5">Book Now</a>
                     </div>
                 </div>
             </nav>

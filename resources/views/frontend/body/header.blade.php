@@ -7,13 +7,13 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-2 pr-0">
-                <div class="language-list">
+                {{-- <div class="language-list">
                     <select class="language-list-item">
                         <option>English</option>
                         <option>Vietnamese</option>                       
                     </select>	
                     
-                </div>
+                </div> --}}
             </div>
 
             <div class="col-lg-9 col-md-10">

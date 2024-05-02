@@ -8,14 +8,14 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Roles</li>
+                    <li class="breadcrumb-item active" aria-current="page">Admin User Setup</li>
                 </ol>
             </nav>
         </div>
         <div class="ms-auto">
             <div class="btn-group">
                 
-                <a href="{{ route('role.permission.add')}}" class="btn btn-outline-primary px-5 radius-30">Add Role Permission</a>
+                <a href="{{ route('admin.user.add')}}" class="btn btn-outline-primary px-5 radius-30">Add Admin User</a>
                 
             </div>
         </div>
@@ -30,21 +30,29 @@
                     <thead >
                         <tr>
                             <th>SL</th>
-                            <th>ROLES NAME</th>
-                            <th style="float:left;">PERMISSION NAME</th>
+                            <th>IMAGE</th>
+                            <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th>PHONE</th>
+                            <th>ROLE</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($roles as $key => $item)
+                        @foreach ($allAdmin as $key => $item)
                           
                         <tr>
                             <td>{{ $key +1 }}</td>
+                            <td><img class="rounded-circle p-1 bg-primary" src="{{ (!empty($item->photo)) ? url('upload/admin_images/'.$item->photo) 
+                                : url('upload/no_image.jpg')}}" width="50"></td>
                             <td>{{$item->name}}</td>
-                            <td style="float:left;" >
-                            @foreach ($item->permissions as $permission)
-                                <span class="badge bg-danger">{{$permission->name}}</span>
+                            <td>{{$item->email}}</td>
+                            <td>{{$item->phone}}</td>
+                            <td> 
+                            @foreach ($item->roles as $role)
+                                <span class="badge bg-danger">{{$role->name}}</span>
                             @endforeach
+                           
                             </td>
                             <td>
                                 {{-- @if (Auth::user()->can('testimonial.delete'))
@@ -53,8 +61,8 @@
                                 @if (Auth::user()->can('testimonial.delete'))
                                 
                                 @endif --}}
-                                <a href="{{ route('admin.roles.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
-                                <a href="{{ route('admin.roles.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
+                                <a href="{{ route('admin.user.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
+                                <a href="{{ route('admin.user.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
                             </td>
                         </tr>
                         @endforeach

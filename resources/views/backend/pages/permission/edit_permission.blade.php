@@ -60,6 +60,7 @@
                                 <option value="Hotel Gallery" {{$permission->group_name == 'Hotel Gallery' ? 'selected' : ''}}>Hotel Gallery</option>
                                 <option value="Contact Message" {{$permission->group_name == 'Contact Message' ? 'selected' : ''}}>Contact Message</option>
                                 <option value="Role And Permission" {{$permission->group_name == 'Role And Permission' ? 'selected' : ''}}>Role And Permission</option>
+                                <option value="Setup Admin User" {{$permission->group_name == 'Setup Admin User' ? 'selected' : ''}}>Setup Admin User</option>
 
                             </select>
                         </div>

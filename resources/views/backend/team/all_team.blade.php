@@ -49,8 +49,12 @@
                             <td>{{$item->position}}</td>
                             <td>{{$item->facebook}}</td>
                             <td>
+                                @if (Auth::user()->can('team.edit'))
                                 <a href="{{ route('team.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
+                                @endif
+                                @if (Auth::user()->can('team.delete'))
                                 <a href="{{ route('team.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

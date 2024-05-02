@@ -59,7 +59,7 @@
                                 <option value="Hotel Gallery">Hotel Gallery</option>
                                 <option value="Contact Message">Contact Message</option>
                                 <option value="Role And Permission">Role And Permission</option>
-
+                                <option value="Setup Admin User">Setup Admin User</option>
                             </select>
                         </div>
                     </div>

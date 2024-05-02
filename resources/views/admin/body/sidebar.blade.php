@@ -1,8 +1,3 @@
-{{-- @extends('admin.admin_dashboard')
-
-@section('sidebar')
-     --}}
-
 
 
 <div class="sidebar-wrapper" data-simplebar="true">
@@ -26,6 +21,7 @@
             </a>
             
         </li>
+        @if (Auth::user()->can('team.menu'))
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -40,6 +36,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('bookarea.menu'))
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -51,6 +50,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('room.type.menu'))
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -62,6 +64,10 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        
+        @if (Auth::user()->can('booking.menu'))
         <li class="menu-label">Booking Manager</li>
         <li>
             <a href="javascript:;" class="has-arrow">
@@ -75,6 +81,9 @@
                 
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('room.list.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -88,6 +97,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('setting.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -101,6 +113,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('testimonial.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -114,6 +129,9 @@
                 </li>
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('blog.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -128,6 +146,9 @@
                 
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('team.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -139,6 +160,9 @@
                 </li>               
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('booking.report.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -150,7 +174,9 @@
                 </li>               
             </ul>
         </li>
-
+        @endif
+        
+        @if (Auth::user()->can('gallery.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -165,6 +191,9 @@
                 
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('contact.message.menu'))
         <li>
             <a class="" target="_blank" href="{{route('contact.message')}}">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
@@ -173,6 +202,10 @@
             </a>
             
         </li>
+        @endif
+        
+       
+        @if (Auth::user()->can('role.permission.menu'))
         <li class="menu-label">Role & Permissions</li>
         <li>
             <a class="has-arrow" href="javascript:;">
@@ -185,12 +218,16 @@
                 </li>
                 <li> <a href="{{route('roles.all')}}"><i class='bx bx-radio-circle'></i>All Roles </a>
                 </li>
-                <li> <a href="{{route('role.permission.add')}}"><i class='bx bx-radio-circle'></i> Role In Permission </a>
-                </li>
                 <li> <a href="{{route('role.permission.all')}}"><i class='bx bx-radio-circle'></i>All Role In Permission </a>
                 </li>
+                <li> <a href="{{route('role.permission.add')}}"><i class='bx bx-radio-circle'></i> Add Role In Permission </a>
+                </li>
+                
             </ul>
         </li>
+        @endif
+        
+        @if (Auth::user()->can('admin.user.menu'))
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-user-circle'></i>
@@ -198,22 +235,17 @@
                 <div class="menu-title">Manage Admin User</div>
             </a>
             <ul>
-                <li> <a href="{{route('admin.add')}}"><i class='bx bx-radio-circle'></i>All Admin </a>
+                <li> <a href="{{route('admin.user.all')}}"><i class='bx bx-radio-circle'></i>All Admin </a>
                 </li>
-                <li> <a href="{{route('admim.all')}}"><i class='bx bx-radio-circle'></i>Add Admin </a>
+                <li> <a href="{{route('admin.user.add')}}"><i class='bx bx-radio-circle'></i>Add Admin </a>
                 </li>
                 
             </ul>
         </li>
-        <li>
-            <a href="https://themeforest.net/user/codervent" target="_blank">
-                <div class="parent-icon"><i class="bx bx-support"></i>
-                </div>
-                <div class="menu-title">Support</div>
-            </a>
-        </li>
+        @endif
+        
+       
     </ul>
     <!--end navigation-->
 </div>
 
-{{-- @endsection --}}

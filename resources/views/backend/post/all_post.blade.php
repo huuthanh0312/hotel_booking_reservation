@@ -47,6 +47,12 @@
                                 : url('upload/no_image.jpg')}}" width="50">
                             </td>
                             <td>
+                                {{-- @if (Auth::user()->can('testimonial.delete'))
+
+                                @endif
+                                @if (Auth::user()->can('testimonial.delete'))
+                                
+                                @endif --}}
                                 <a href="{{ route('blog.post.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
                                 <a href="{{ route('blog.post.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
                             </td>

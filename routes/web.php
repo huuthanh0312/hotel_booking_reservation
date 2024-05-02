@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Testimonial;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
@@ -75,17 +76,17 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
 
     // Routes Team Controller
     Route::controller(TeamController::class)->group(function (){
-        Route::get('/all/team', 'AllTeam' )->name('all.team');
+        Route::get('/all/team', 'AllTeam' )->name('all.team')->middleware('permission:team.all');
 
-        Route::get('/add/team', 'AddTeam' )->name('add.team');
+        Route::get('/add/team', 'AddTeam' )->name('add.team')->middleware('permission:team.add');
 
         Route::post('/team/store', 'TeamStore' )->name('team.store');
 
-        Route::get('/team/edit/{id}', 'EditTeam' )->name('team.edit');
+        Route::get('/team/edit/{id}', 'EditTeam' )->name('team.edit')->middleware('permission:team.edit');
 
         Route::post('/team/update', 'UpdateTeam' )->name('team.update');
 
-        Route::get('/team/delete/{id}', 'DeleteTeam' )->name('team.delete');
+        Route::get('/team/delete/{id}', 'DeleteTeam' )->name('team.delete')->middleware('permission:team.delete');
 
     });
 
@@ -93,20 +94,20 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     Route::controller(TeamController::class)->group(function (){
         Route::get('/book/area', 'BookArea' )->name('book.area');
 
-        Route::post('/update/bookarea', 'UpdateBookArea' )->name('update.book.area');
+        Route::post('/update/bookarea', 'UpdateBookArea' )->name('update.book.area')->middleware('permission:team.update.bookarea');
     });
 
     // Routes Room Type Controller
     Route::controller(RoomTypeController::class)->group(function (){
-        Route::get('/room-type/list', 'RoomTypeList' )->name('room.type.list');
+        Route::get('/room-type/list', 'RoomTypeList' )->name('room.type.list')->middleware('permission:room.type.menu');
 
-        Route::get('/room-type/add', 'RoomTypeAdd' )->name('room.type.add');
+        Route::get('/room-type/add', 'RoomTypeAdd' )->name('room.type.add')->middleware('permission:room.type.menu');
 
-        Route::post('/room-type/store', 'RoomTypeStore' )->name('room.type.store');
+        Route::post('/room-type/store', 'RoomTypeStore' )->name('room.type.store')->middleware('permission:room.type.menu');
 
-        Route::get('/room-type/edit/{id}', 'RoomTypeEdit' )->name('room.type.edit');
+        Route::get('/room-type/edit/{id}', 'RoomTypeEdit' )->name('room.type.edit')->middleware('permission:room.type.menu');
 
-        Route::post('/room-type/update', 'RoomTypeUpdate' )->name('room.type.update');
+        Route::post('/room-type/update', 'RoomTypeUpdate' )->name('room.type.update')->middleware('permission:room.type.menu');
 
 
     });
@@ -167,11 +168,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     // Routes Room List Routes
     Route::controller(RoomListController::class)->group(function (){
 
-        Route::get('/room-list/view', 'ViewRoomList' )->name('view.room.list');
+        Route::get('/room-list/view', 'ViewRoomList' )->name('view.room.list')->middleware('permission:room.list.menu');
 
-        Route::get('/room-list/add', 'AddRoomList' )->name('add.room.list');
+        Route::get('/room-list/add', 'AddRoomList' )->name('add.room.list')->middleware('permission:room.list.menu');
 
-        Route::post('/room-list/store', 'StoreRoomList' )->name('store.room.list');
+        Route::post('/room-list/store', 'StoreRoomList' )->name('store.room.list')->middleware('permission:room.list.menu');
 
         
     });
@@ -179,9 +180,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     // Setting Routes
     Route::controller(SettingController::class)->group(function (){
         //// SMTP Setting
-        Route::get('/smtp-setting', 'SmtpSetting' )->name('smtp.setting');
+        Route::get('/smtp-setting', 'SmtpSetting' )->name('smtp.setting')->middleware('permission:setting.menu');
 
-        Route::post('/smtp-setting/update', 'UpdateSmtpSetting' )->name('smtp.update');
+        Route::post('/smtp-setting/update', 'UpdateSmtpSetting' )->name('smtp.update')->middleware('permission:setting  .menu');
 
         
     });
@@ -189,49 +190,49 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
     // Testimonial Routes
     Route::controller(TestimonialController::class)->group(function (){
         //// testimonial CRUD
-        Route::get('/testimonial/all', 'AllTestimonial' )->name('testimonial.all');
+        Route::get('/testimonial/all', 'AllTestimonial' )->name('testimonial.all')->middleware('permission:testimonial.menu');
 
-        Route::get('/testimonial/add', 'AddTestimonial' )->name('testimonial.add');
+        Route::get('/testimonial/add', 'AddTestimonial' )->name('testimonial.add')->middleware('permission:testimonial.menu');
 
-        Route::post('/testimonial/store', 'StoreTestimonial' )->name('testimonial.store');
+        Route::post('/testimonial/store', 'StoreTestimonial' )->name('testimonial.store')->middleware('permission:testimonial.menu');
 
-        Route::get('/testimonial/edit/{id}', 'EditTestimonial' )->name('testimonial.edit');
+        Route::get('/testimonial/edit/{id}', 'EditTestimonial' )->name('testimonial.edit')->middleware('permission:testimonial.menu');
 
-        Route::post('/testimonial/update', 'UpdateTestimonial' )->name('testimonial.update');
+        Route::post('/testimonial/update', 'UpdateTestimonial' )->name('testimonial.update')->middleware('permission:testimonial.menu');
 
-        Route::get('/testimonial/delete/{id}', 'DelteTestimonial' )->name('testimonial.delete');
+        Route::get('/testimonial/delete/{id}', 'DelteTestimonial' )->name('testimonial.delete')->middleware('permission:testimonial.menu');
 
     });
 
     // Blog Category Routes
     Route::controller(BlogController::class)->group(function (){
         ////  Blog Category CRUD
-        Route::get('/blog-category/all', 'AllBlogCategory' )->name('blog.category.all');
+        Route::get('/blog-category/all', 'AllBlogCategory' )->name('blog.category.all')->middleware('permission: blog.category.menu');
 
-        Route::post('/blog-category/store', 'StoreBlogCategory' )->name('blog.category.store');
+        Route::post('/blog-category/store', 'StoreBlogCategory' )->name('blog.category.store')->middleware('permission: blog.category.menu');
 
-        Route::get('/blog-category/edit/{id}', 'EditBlogCategory' )->name('blog.category.edit');
+        Route::get('/blog-category/edit/{id}', 'EditBlogCategory' )->name('blog.category.edit')->middleware('permission: blog.category.menu');
 
-        Route::post('/blog-category/update', 'UpdateBlogCategory' )->name('blog.category.update');
+        Route::post('/blog-category/update', 'UpdateBlogCategory' )->name('blog.category.update')->middleware('permission: blog.category.menu');
 
-        Route::get('/blog-category/delete/{id}', 'DeleteBlogCategory' )->name('blog.category.delete');
+        Route::get('/blog-category/delete/{id}', 'DeleteBlogCategory' )->name('blog.category.delete')->middleware('permission: blog.category.menu');
 
     });
 
     // Blog  Routes
     Route::controller(BlogController::class)->group(function (){
         //// Blog CRUD
-        Route::get('/blog-post/all', 'AllBlogPost' )->name('blog.post.all');
+        Route::get('/blog-post/all', 'AllBlogPost' )->name('blog.post.all')->middleware('permission: blog.menu');
 
-        Route::get('/blog-post/add', 'AddBlogPost' )->name('blog.post.add');
+        Route::get('/blog-post/add', 'AddBlogPost' )->name('blog.post.add')->middleware('permission: blog.menu');
 
-        Route::post('/blog-post/store', 'StoreBlogPost' )->name('blog.post.store');
+        Route::post('/blog-post/store', 'StoreBlogPost' )->name('blog.post.store')->middleware('permission: blog.menu');
 
-        Route::get('/blog-post/edit/{id}', 'EditBlogPost' )->name('blog.post.edit');
+        Route::get('/blog-post/edit/{id}', 'EditBlogPost' )->name('blog.post.edit')->middleware('permission: blog.menu');
 
-        Route::post('/blog-post/update', 'UpdateBlogPost' )->name('blog.post.update');
+        Route::post('/blog-post/update', 'UpdateBlogPost' )->name('blog.post.update')->middleware('permission: blog.menu');  
 
-        Route::get('/blog-post/delete/{id}', 'DeleteBlogPost' )->name('blog.post.delete');
+        Route::get('/blog-post/delete/{id}', 'DeleteBlogPost' )->name('blog.post.delete')->middleware('permission: blog.menu');
 
     });
 
@@ -257,9 +258,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         // Site Setting Routes
         Route::controller(SettingController::class)->group(function (){
             //// Site Setting
-            Route::get('/site-setting', 'SiteSetting' )->name('site.setting');
+            Route::get('/site-setting', 'SiteSetting' )->name('site.setting')->middleware('permission:setting.menu');
 
-            Route::post('/site-setting/update', 'UpdateSiteSetting' )->name('site.update');
+            Route::post('/site-setting/update', 'UpdateSiteSetting' )->name('site.update')->middleware('permission:setting.menu');
 
     
         });
@@ -267,21 +268,21 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         // Gallery Setting Routes
         Route::controller(GalleryController::class)->group(function (){
             //// gallery Setting CRUD
-            Route::get('/gallery/all', 'AllGallery' )->name('gallery.all');
+            Route::get('/gallery/all', 'AllGallery' )->name('gallery.all')->middleware('permission:gallery.menu');
 
-            Route::get('/gallery/add', 'AddGallery' )->name('gallery.add');
+            Route::get('/gallery/add', 'AddGallery' )->name('gallery.add')->middleware('permission:gallery.menu');
 
-            Route::post('/gallery/store', 'StoreGallery' )->name('gallery.store');
+            Route::post('/gallery/store', 'StoreGallery' )->name('gallery.store')->middleware('permission:gallery.menu');
             
-            Route::get('/gallery/edit/{id}', 'EditGallery' )->name('gallery.edit');
+            Route::get('/gallery/edit/{id}', 'EditGallery' )->name('gallery.edit')->middleware('permission:gallery.menu');
 
-            Route::post('/gallery/update', 'UpdateGallery' )->name('gallery.update');
+            Route::post('/gallery/update', 'UpdateGallery' )->name('gallery.update')->middleware('permission:gallery.menu');
             
-            Route::get('/gallery/delete/{id}', 'DeleteGallery' )->name('gallery.delete');
+            Route::get('/gallery/delete/{id}', 'DeleteGallery' )->name('gallery.delete')->middleware('permission:gallery.menu');
 
             ///// delete Multiple Gallery
             
-            Route::post('/gallery/delete/multiple', 'DeleteGallaryMultiple' )->name('delete.gallary.multiple');
+            Route::post('/gallery/delete/multiple', 'DeleteGallaryMultiple' )->name('delete.gallary.multiple')->middleware('permission:role.gallery.menu');
 
         });
 
@@ -297,71 +298,80 @@ Route::middleware(['auth', 'roles:admin'])->group(function (){
         Route::controller(RoleController::class)->group(function (){
             ///// Permission CRUD
            
-            Route::get('/permission/all', 'AllPermission' )->name('permission.all');
+            Route::get('/permission/all', 'AllPermission' )->name('permission.all')->middleware('permission:role.permission.menu');
 
-            Route::get('/permission/add', 'AddPermission' )->name('permission.add');
+            Route::get('/permission/add', 'AddPermission' )->name('permission.add')->middleware('permission:role.permission.menu');
 
-            Route::post('/permission/store', 'StorePermission' )->name('permission.store');
+            Route::post('/permission/store', 'StorePermission' )->name('permission.store')->middleware('permission:role.permission.menu');
            
-            Route::get('/permission/edit/{id}', 'EditPermission' )->name('permission.edit');
+            Route::get('/permission/edit/{id}', 'EditPermission' )->name('permission.edit')->middleware('permission:role.permission.menu');
 
-            Route::post('/permission/update', 'UpdatePermission' )->name('permission.update');
+            Route::post('/permission/update', 'UpdatePermission' )->name('permission.update')->middleware('permission:role.permission.menu');
 
-            Route::get('/permission/delete/{id}', 'DeletePermission' )->name('permission.delete');
+            Route::get('/permission/delete/{id}', 'DeletePermission' )->name('permission.delete')->middleware('permission:role.permission.menu');
 
             /// import And Export Permission
            
-            Route::get('/permission/import', 'ImportPermission' )->name('permission.import');
+            Route::get('/permission/import', 'ImportPermission' )->name('permission.import')->middleware('permission:role.permission.menu');
            
-            Route::get('/export', 'Export' )->name('export');
+            Route::get('/export', 'Export' )->name('export')->middleware('permission:role.permission.menu');
 
-            Route::post('/import', 'Import' )->name('import');
+            Route::post('/import', 'Import' )->name('import')->middleware('permission:role.permission.menu');
         });
 
 
         ////// Role route
         Route::controller(RoleController::class)->group(function (){
               ///// Permission CRUD
-            Route::get('/roles/all', 'AllRoles' )->name('roles.all');
+            Route::get('/roles/all', 'AllRoles' )->name('roles.all')->middleware('permission:role.permission.menu');
 
-            Route::get('/roles/add', 'AddRoles' )->name('roles.add');
+            Route::get('/roles/add', 'AddRoles' )->name('roles.add')->middleware('permission:role.permission.menu');
 
-            Route::post('/roles/store', 'StoreRoles' )->name('roles.store');
+            Route::post('/roles/store', 'StoreRoles' )->name('roles.store')->middleware('permission:role.permission.menu');
            
-            Route::get('/roles/edit/{id}', 'EditRoles' )->name('roles.edit');
+            Route::get('/roles/edit/{id}', 'EditRoles' )->name('roles.edit')->middleware('permission:role.permission.menu');
 
-            Route::post('/permission/update', 'UpdateRoles' )->name('roles.update');
+            Route::post('/permission/update', 'UpdateRoles' )->name('roles.update')->middleware('permission:role.permission.menu');
 
-            Route::get('/roles/delete/{id}', 'DeleteRoles' )->name('roles.delete');
+            Route::get('/roles/delete/{id}', 'DeleteRoles' )->name('roles.delete')->middleware('permission:role.permission.menu');
 
 
             ///// Role In Permission
-            Route::get('/role-permission', 'AddRolePermission' )->name('role.permission.add');
+            Route::get('/role-permission', 'AddRolePermission' )->name('role.permission.add')->middleware('permission:role.permission.menu');
 
-            Route::post('/role-permission/store', 'StoreRolePermission' )->name('role.permission.store');
+            Route::post('/role-permission/store', 'StoreRolePermission' )->name('role.permission.store')->middleware('permission:role.permission.menu');
 
-            Route::get('/role-permission/all', 'AllRolePermission' )->name('role.permission.all');
+            Route::get('/role-permission/all', 'AllRolePermission' )->name('role.permission.all')->middleware('permission:role.permission.menu');
 
             ///////// Admin Edit And Delete Roles
-            Route::get('/admin/role/edit/{id}', 'AdminEditRole' )->name('admin.roles.edit');
+            Route::get('/admin/role/edit/{id}', 'AdminEditRole' )->name('admin.roles.edit')->middleware('permission:role.permission.menu');
 
-            Route::post('/admin/role/update/{id}', 'AdminUpdateRole' )->name('admin.roles.update');
+            Route::post('/admin/role/update/{id}', 'AdminUpdateRole' )->name('admin.roles.update')->middleware('permission:role.permission.menu');
 
-            Route::get('/admin/role/delete/{id}', 'AdminDeleteRole' )->name('admin.roles.delete');
+            Route::get('/admin/role/delete/{id}', 'AdminDeleteRole' )->name('admin.roles.delete')->middleware('permission:role.permission.menu');
 
 
         });//end controller
 
 
 
-      //Add and all  Admin User Routes
-      Route::controller(GalleryController::class)->group(function (){
-           
-        Route::get('/admin/all', 'AllAdmin' )->name('admin.all');
+        //Add and all  Admin User Routes
+        Route::controller(AdminController::class)->group(function (){
+            
+            Route::get('admin-user/all', 'AllAdminUser' )->name('admin.user.all')->middleware('permission:admin.user.menu');
 
-        Route::get('/admin/add', 'AddAdmin' )->name('admin.add');
+            Route::get('admin-user/add', 'AddAdminUser' )->name('admin.user.add')->middleware('permission:admin.user.menu');
 
-    });
+            Route::post('store/admin-user', 'StoreAdminUser' )->name('admin.user.store')->middleware('permission:admin.user.menu');
+
+            Route::get('admin-user/edit/{id}', 'EditAdminUser' )->name('admin.user.edit')->middleware('permission:admin.user.menu');
+
+            Route::post('admin-user/update/{id}', 'UpdateAdminUser' )->name('admin.user.update')->middleware('permission:admin.user.menu');
+
+            Route::get('admin-user/delete/{id}', 'DeleteAdminUser' )->name('admin.user.delete')->middleware('permission:admin.user.menu');
+
+
+        });//end controller
 
 
 }); // End Admin Group Middleware

@@ -41,6 +41,12 @@
                             <td>{{ $key +1 }}</td>
                             <td>{{$item->name}}</td>
                             <td>
+                                {{-- @if (Auth::user()->can('testimonial.delete'))
+
+                                @endif
+                                @if (Auth::user()->can('testimonial.delete'))
+                                
+                                @endif --}}
                                 <a href="{{ route('roles.edit', $item->id)}}"  class="btn btn-outline-warning px-5 radius-30">Edit</a>
                                 <a href="{{ route('roles.delete', $item->id)}}" id="delete" class="btn btn-outline-danger px-5 radius-30">Delete</a>
                             </td>

@@ -16,6 +16,10 @@ class ReportController extends Controller
     }
 
     public function SearchByDate(Request $request){
+        $this->validate($request, [
+            'start_date'=> 'required',
+            'end_date'=> 'required',     
+        ]);
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 

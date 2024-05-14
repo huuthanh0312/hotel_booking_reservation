@@ -1,5 +1,5 @@
 @php
-    $dataBookArea = App\Models\BookArea::find(1);
+$dataBookArea = App\Models\BookArea::find(1);
 @endphp
 
 
@@ -14,7 +14,7 @@
                         <h2>{{$dataBookArea->main_title}}</h2>
                         <p>{{$dataBookArea->short_desc}}</p>
                     </div>
-                    <a href="{{$dataBookArea->linl_url}}" class="default-btn btn-bg-three">Quick Booking</a>
+                    <a href="{{route('all.room.frontend')}}" class="default-btn btn-bg-three">Quick Booking</a>
                 </div>
             </div>
 

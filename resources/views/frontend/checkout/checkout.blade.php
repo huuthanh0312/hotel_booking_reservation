@@ -56,7 +56,9 @@
                                         class="form-control">
                                 </div>
                             </div>
-
+                            @if ($errors->has('name'))
+                            <p class="text-danger">{{$errors->first('name')}}</p>
+                            @endif
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Email <span class="required">*</span></label>
@@ -64,7 +66,9 @@
                                         class="form-control">
                                 </div>
                             </div>
-
+                            @if ($errors->has('email'))
+                            <p class="text-danger">{{$errors->first('email')}}</p>
+                            @endif
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Phone <span class="required">*</span></label>
@@ -72,7 +76,9 @@
                                         class="form-control">
                                 </div>
                             </div>
-
+                            @if ($errors->has('phone'))
+                            <p class="text-danger">{{$errors->first('phone')}}</p>
+                            @endif
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>Address <span class="required">*</span></label>
@@ -80,7 +86,7 @@
                                         class="form-control">
                                 </div>
                                 @if ($errors->has('address'))
-                                <p class="text-danger">{{errors->first('address')}}</p>
+                                <p class="text-danger">{{$errors->first('address')}}</p>
                                 @endif
                             </div>
 
@@ -90,7 +96,7 @@
                                     <input type="text" name="state" class="form-control">
                                 </div>
                                 @if ($errors->has('state'))
-                                <p class="text-danger">{{errors->first('state')}}</p>
+                                <p class="text-danger">{{$errors->first('state')}}</p>
                                 @endif
                             </div>
 
@@ -100,7 +106,7 @@
                                     <input type="text" name="zip_code" class="form-control">
                                 </div>
                                 @if ($errors->has('zip_code'))
-                                <p class="text-danger">{{errors->first('zip_code')}}</p>
+                                <p class="text-danger">{{$errors->first('zip_code')}}</p>
                                 @endif
                             </div>
                             {{-- <p>Session Value: {{ json_encode(session('book_date'))}}</p> --}}
@@ -285,7 +291,7 @@ $(function() {
 
           var pay_method = $('input[name="payment_method"]:checked').val();
           if (pay_method == undefined){
-                alert('Please select a payment method');
+                toastr.error('Please select a payment method');
                 return false;
           }else if(pay_method == 'COD'){
 

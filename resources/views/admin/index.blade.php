@@ -40,7 +40,6 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                         <div>
                             <p class="mb-0 text-secondary">Pending Booking</p>
                             <h4 class="my-1 text-danger">{{count($pending)}}</h4>
-                            <p class="mb-0 font-13">+5.4% from last week</p>
                         </div>
                         <div class="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto"><i
                                 class='bx bxs-wallet'></i>
@@ -56,7 +55,6 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                         <div>
                             <p class="mb-0 text-secondary">Complete Booking</p>
                             <h4 class="my-1 text-success">{{count($complete)}}</h4>
-                            <p class="mb-0 font-13">-4.5% from last week</p>
                         </div>
                         <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i
                                 class='bx bxs-bar-chart-alt-2'></i>
@@ -72,7 +70,6 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                         <div>
                             <p class="mb-0 text-secondary">Total Price</p>
                             <h4 class="my-1 text-warning">{{$total_price}}$</h4>
-                            <p class="mb-0 font-13">+8.4% from last week</p>
                         </div>
                         <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto"><i
                                 class='bx bxs-group'></i>
@@ -92,16 +89,16 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                         <div>
                             <h6 class="mb-0">Sales Overview</h6>
                         </div>
-                        
+
                     </div>
                 </div>
-                
+
                 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
                     <canvas id="bookingChart"></canvas>
                 </div>
             </div>
         </div>
-       
+
     </div>
     <!--end row-->
 
@@ -113,15 +110,15 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                         <div>
                             <h6 class="mb-0">Recent Booking</h6>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
-                            <thead >
+                            <thead>
                                 <tr>
-                                   
+
                                     <th>B No</th>
                                     <th>B Date</th>
                                     <th>Customer</th>
@@ -131,40 +128,41 @@ $allData = App\Models\Booking::orderBy('id', 'desc')->limit(10)->get();
                                     <th>Guest</th>
                                     <th>Payment</th>
                                     <th>Status</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($allData as $key => $item)
-                                  
+
                                 <tr>
-                                    
+
                                     <td><a href="{{route('edit_booking', $item->id )}}">{{$item->code}}</a></td>
                                     <td>{{$item->created_at->format('Y-m-d')}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item['room']['type']['name']}}</td>
-                                    <td><span class="badge bg-primary">{{$item->check_in}}</span> / <span class="badge bg-warning text-dark">{{$item->check_out}}</span></td>
+                                    <td><span class="badge bg-primary">{{$item->check_in}}</span> / <span
+                                            class="badge bg-warning text-dark">{{$item->check_out}}</span></td>
                                     <td>{{$item->number_of_rooms}}</td>
                                     <td>{{$item->persion}}</td>
                                     <td>
                                         @if ($item->payment_status == 1)
-                                            <p class="text-primary">Completed</p>
+                                        <p class="text-primary">Completed</p>
                                         @else
-                                            <p class="text-danger">Pending</p>
+                                        <p class="text-danger">Pending</p>
                                         @endif
                                     </td>
                                     <td>
                                         @if ($item->status == 1)
-                                            <p class="text-primary">Completed</p>
+                                        <p class="text-primary">Completed</p>
                                         @else
-                                            <p class="text-danger">Pending</p>
+                                        <p class="text-danger">Pending</p>
                                         @endif
                                     </td>
-                                    
+
                                 </tr>
                                 @endforeach
                             </tbody>
-                            
+
                         </table>
                     </div>
                 </div>

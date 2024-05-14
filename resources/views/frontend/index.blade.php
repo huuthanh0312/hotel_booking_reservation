@@ -1,4 +1,3 @@
-
 @extends('frontend.main_master')
 @section('main')
 
@@ -20,14 +19,15 @@
 <div class="banner-form-area">
     <div class="container">
         <div class="banner-form">
-            <form method="post" action="{{ route('booking.search')}}" >
+            <form method="post" action="{{ route('booking.search')}}">
                 @csrf
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3">
                         <div class="form-group">
                             <label>CHECK IN TIME</label>
                             <div class="input-group">
-                                <input name="check_in" autocomplete="off" type="text" required class="form-control dt_picker" placeholder="yyyy-mm-dd">
+                                <input name="check_in" autocomplete="off" type="text" required
+                                    class="form-control dt_picker" placeholder="yyyy-mm-dd">
                                 <span class="input-group-addon"></span>
                             </div>
                             <i class='bx bxs-chevron-down'></i>
@@ -38,7 +38,8 @@
                         <div class="form-group">
                             <label>CHECK OUT TIME</label>
                             <div class="input-group">
-                                <input name="check_out" autocomplete="off" type="text" required class="form-control dt_picker" placeholder="yyyy-mm-dd">
+                                <input name="check_out" autocomplete="off" type="text" required
+                                    class="form-control dt_picker" placeholder="yyyy-mm-dd">
                                 <span class="input-group-addon"></span>
                             </div>
                             <i class='bx bxs-chevron-down'></i>
@@ -77,12 +78,10 @@
 @include('frontend.home.book_area_two')
 
 <!-- Book Area Two End -->
+<!-- Blog Area -->
+@include('frontend.home.blog')
 
-<!-- Services Area Three -->
-@include('frontend.home.services')
-
-<!-- Services Area Three End -->
-
+<!-- Blog Area End -->
 <!-- Team Area Three -->
 @include('frontend.home.team')
 
@@ -93,14 +92,7 @@
 
 <!-- Testimonials Area Three End -->
 
-<!-- FAQ Area -->
-@include('frontend.home.faq')
 
-<!-- FAQ Area End -->
 
-<!-- Blog Area -->
-@include('frontend.home.blog')
-
-<!-- Blog Area End -->
 
 @endsection

@@ -79,7 +79,7 @@
 												</div>
 											</div>
                                             @if (Route::has('password.request'))
-                                                <div class="col-md-6 text-end">	<a href="href="{{ route('password.request') }}">Forgot Password ?</a>
+                                                <div class="col-md-6 text-end">	<a href="{{ route('password.request') }}">Forgot Password ?</a>
                                                 </div>
                                                 
                                             @endif

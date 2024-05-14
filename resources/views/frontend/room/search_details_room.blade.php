@@ -37,13 +37,15 @@
                                     <div class="form-group">
                                         <label>Check in</label>
                                         <div class="input-group">
-                                            <input name="check_in" id="check_in" autocomplete="off" type="text"  class="form-control dt_picker" 
-                                                        value="{{old('check_in') ? date('Y-m-d', strtotime(old('check_in'))) : ''}}" required>
-                                            
+                                            <input name="check_in" id="check_in" autocomplete="off" type="text"
+                                                class="form-control dt_picker"
+                                                value="{{old('check_in') ? date('Y-m-d', strtotime(old('check_in'))) : ''}}"
+                                                required>
+
                                             <span class="input-group-addon"></span>
                                         </div>
                                         <i class='bx bxs-calendar'></i>
-                                        
+
                                     </div>
                                 </div>
 
@@ -51,62 +53,72 @@
                                     <div class="form-group">
                                         <label>Check Out</label>
                                         <div class="input-group">
-                                            <input name="check_out" id="check_out" autocomplete="off" type="text"  class="form-control dt_picker" 
-                                                        value="{{old('check_out') ? date('Y-m-d', strtotime(old('check_out'))) : ''}}" required>
+                                            <input name="check_out" id="check_out" autocomplete="off" type="text"
+                                                class="form-control dt_picker"
+                                                value="{{old('check_out') ? date('Y-m-d', strtotime(old('check_out'))) : ''}}"
+                                                required>
                                             <span class="input-group-addon"></span>
-                                            
+
                                         </div>
                                         <i class='bx bxs-calendar'></i>
-                                        
+
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Numbers of Persons</label>
-                                        <select class="form-control" name="persion" id ="nmbr_persion">
-                                            @for ($i = 1; $i <= 4; $i++)
-                                            <option {{old('persion')==$i ? 'selected' : ''}} value="0{{$i}}">0{{$i}}</option>
-                                            @endfor    
+                                        <select class="form-control" name="persion" id="nmbr_persion">
+                                            @for ($i = 1; $i <= 4; $i++) <option {{old('persion')==$i ? 'selected' : ''
+                                                }} value="0{{$i}}">0{{$i}}</option>
+                                                @endfor
                                         </select>
                                     </div>
                                 </div>
                                 {{-- get sum total money --}}
-                                <input type="hidden" name="total_adult" id="total_adult" value="{{$detailsRoom->total_adult}}">
-                                <input type="hidden" name="room_price" id="room_price" value="{{$detailsRoom->price}}" >
-                                <input type="hidden" name="discount_p" id="discount_p" value="{{$detailsRoom->discount}}">
+                                <input type="hidden" name="total_adult" id="total_adult"
+                                    value="{{$detailsRoom->total_adult}}">
+                                <input type="hidden" name="room_price" id="room_price" value="{{$detailsRoom->price}}">
+                                <input type="hidden" name="discount_p" id="discount_p"
+                                    value="{{$detailsRoom->discount}}">
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Numbers of Rooms</label>
-                                        <select class="form-control number_of_rooms" name="number_of_rooms" id ="select_room">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                            <option value="0{{$i}}">0{{$i}}</option>
-                                            @endfor    
+                                        <select class="form-control number_of_rooms" name="number_of_rooms"
+                                            id="select_room">
+                                            @for ($i = 1; $i <= 5; $i++) <option value="0{{$i}}">0{{$i}}</option>
+                                                @endfor
                                         </select>
                                     </div>
                                     {{-- available room input --}}
                                     <input type="hidden" name="available_room" id="available_room">
                                     <p class="available_room"></p>
                                 </div>
-                          
+
                                 <div class="col-lg-12">
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td><p>SubTotal</p></td>
+                                                <td>
+                                                    <p>SubTotal</p>
+                                                </td>
                                                 <td style="text-align: right"> <span class="t_subtotal">0</span> $</td>
                                             </tr>
                                             <tr>
-                                                <td><p>Discount</p></td>
+                                                <td>
+                                                    <p>Discount</p>
+                                                </td>
                                                 <td style="text-align: right"> <span class="t_discount">0</span> $</td>
                                             </tr>
                                             <tr>
-                                                <td><p>Total</p></td>
+                                                <td>
+                                                    <p>Total</p>
+                                                </td>
                                                 <td style="text-align: right"> <span class="t_g_total">0</span> $</td>
                                             </tr>
                                         </tbody>
-                                        
+
                                     </table>
                                 </div>
 
@@ -159,8 +171,8 @@
                                     <div class="side-bar-list">
                                         <ul>
                                             <li>
-                                                <a href="#"> <b>Capacity : </b> {{$detailsRoom->room_capacity}} Person <i
-                                                        class='bx bxs-cloud-download'></i></a>
+                                                <a href="#"> <b>Capacity : </b> {{$detailsRoom->room_capacity}} Person
+                                                    <i class='bx bxs-cloud-download'></i></a>
                                             </li>
                                             <li>
                                                 <a href="#"> <b>Size : </b> {{$detailsRoom->size}}m2 <i
@@ -189,36 +201,6 @@
 
                             </div>
                         </div>
-                    </div>
-
-                    <div class="room-details-review">
-                        <h2>Clients Review and Retting's</h2>
-                        <div class="review-ratting">
-                            <h3>Your retting: </h3>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <form>
-                            
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control" cols="30" rows="8" required
-                                            data-error="Write your message"
-                                            placeholder="Write your review here.... "></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12 col-md-12">
-                                    <button type="submit" class="default-btn btn-bg-three">
-                                        Submit Review
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -250,7 +232,8 @@
                         <div class="col-lg-7 col-md-8 p-0">
                             <div class="room-card-content">
                                 <h3>
-                                    <a href="{{route('details.froom', $otherRoom->id)}}">{{ $otherRoom['type']['name']}}</a>
+                                    <a href="{{route('details.froom', $otherRoom->id)}}">{{
+                                        $otherRoom['type']['name']}}</a>
                                 </h3>
                                 <span>{{$otherRoom->price}}$ / Per Night </span>
                                 <div class="rating">
@@ -279,13 +262,13 @@
                     </div>
                 </div>
             </div>
-           @endforeach
+            @endforeach
         </div>
     </div>
 </div>
 <!-- Room Details Other End -->
 
-<script >
+<script>
     $(document).ready(function(){
         var check_in = '{{old('check_in')}}';
         var check_out = '{{old('check_out')}}';
@@ -303,7 +286,7 @@
             if(check_in != '' && check_out != '' && check_in < check_out){
                 getAvaility(check_in, check_out, room_id );
             } else{
-                alert('Sorry You Can Chose Date Disable');
+                toastr.error("Sorry You Can Chose Date Disable");
                 $("#check_in").val('{{old('check_in')}}');
                 $("#check_out").val('{{old('check_out')}}');
                 
@@ -317,7 +300,7 @@
             if(check_in != '' && check_out != '' && check_in < check_out){
                 getAvaility(check_in, check_out, room_id );
             } else{
-                alert('Sorry You Can Chose Date Disable');
+                toastr.error("Sorry You Can Chose Date Disable");
                 $("#check_in").val('{{old('check_in')}}');
                 $("#check_out").val('{{old('check_out')}}');
                 
@@ -370,14 +353,14 @@
             var av_room = $("#available_room").val();
             var select_room = $("#select_room").val();
             if(parseInt(select_room) > av_room){
-                alert("Sorry, you select maxinum number of room");
+                toastr.error("Sorry, you select maxinum number of room");
                 return false;
             } // if check room validate
 
             var nmbr_persion = $("#nmbr_persion").val();
             var total_adult = $("#total_adult").val();
             if(parseInt(nmbr_persion) > parseInt(total_adult)){
-                alert("Sorry, you select maxinum number of room");
+                toastr.error("Sorry, you select maxinum number of room");
                 return false;
             }// if check persion and total adult validate
 
